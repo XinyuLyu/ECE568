@@ -1,0 +1,9 @@
+Instructions:
+Language: 
+java IDE: Eclipse Java Oxygen. 
+If you test with Eclipse IDE, you can simply import the project folder "curvefitting" into the IDE.
+
+Or if you want to build a new project to test. Make sure the project is "curvefitting"  and the package name is "curvefitting". And add the external jars and the source attachment in the lib folder.
+My program "curvefitting.java" is in the src folder. The test data are also in the folder "curvefitting".The external jars(Jama-1.0.3.jar,commons-math3-3.4.1.jar,commons-csv-1.5.jar) and the source attachment(Jama-1.0.3.zip) are all in the folder lib.
+Before running the program, if you want to use your test data, please put it in the folder "curvefitting" just like mine. And when running the program, you only need to input the right CSV file names, just like mine.Don't need to input the length of the test file.For the M, beta, alpha, after testing many times, I find M=4, beta=12, alpha=0.5 are the best with minimum errors, and be free to change them. However, I find that when choosing the M(9), beta(11), alpha(0.05) as the lecture slides, it may cause the singular matrix problem. For the singular Matrix problem, you can not find its inverse. Therefore, I think the parameters on the slides are more suitable to estimate the curve more like the sin(x), but not the stock price curve.
+After running the program, you will get the predicted price, true value, more precise price interval and the absolute/relative mean.
