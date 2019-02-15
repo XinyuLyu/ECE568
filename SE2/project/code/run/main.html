@@ -1,0 +1,3271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link rel="icon" href="../../favicon.ico"> -->
+    <title>Stock System</title>
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet"> -->
+    <!-- <link href="navbar-fixed-top.css" rel="stylesheet"> -->
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="./echart/echarts.min.js"></script>
+    <!-- <script src="../../assets/js/ie-emulation-modes-warning.js"></script> -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+      var username = document.getElementById("username");
+      window.onload = function(){
+          if(localStorage.username.length>1){
+              username.innerHTML = localStorage.username; //给标签加用户名
+          }
+      }
+      function login(){
+          // 构造返回链接
+          var returnUrl = "returnUrl=goTo-demo.html";
+          var Url = "goToLogin-demo.html" + "?" + returnUrl;
+          location.href = Url;
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand hidden-sm">Stock System</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse" role="navigation">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#Home" data-toggle="tab">Home</a></li>
+            <li class="dropdown">
+              <a href="#"  id="Company_Name" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Company <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" id="Company_Label">
+                <li><a href="#AABA" data-toggle="tab">AABA</a></li>
+                <li><a href="#AMZN" data-toggle="tab">AMZN</a></li>
+                <li><a href="#BABA" data-toggle="tab">BABA</a></li>
+                <li><a href="#FB" data-toggle="tab">FB</a></li>
+                <li><a href="#GOOG" data-toggle="tab">GOOG</a></li>
+                <li><a href="#NFLX" data-toggle="tab">NFLX</a></li>
+                <li><a href="#OPK" data-toggle="tab">OPK</a></li>
+                <li><a href="#SPLK" data-toggle="tab">SPLK</a></li>
+                <li><a href="#TSLA" data-toggle="tab">TSLA</a></li>
+                <li><a href="#TWTR" data-toggle="tab">TWTR</a></li>
+              </ul>
+            </li>
+            <script type="text/javascript">
+                window.onload = function(){
+                    obj = document.getElementById("Company_Label").getElementsByTagName("li");
+                    for(i in obj){
+                        obj[i].onclick = function(){
+                            str = this.innerHTML;
+                            document.getElementById("Company_Name").innerHTML = str;
+                        }
+                    }
+                };
+            </script>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Query <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="#Last" data-toggle="tab">Latest</a></li>
+                <li><a href="#High" data-toggle="tab">Highest</a></li>
+                <li><a href="#Low" data-toggle="tab">Lowest</a></li>
+                <li><a href="#Ave" data-toggle="tab">Average</a></li>
+                <li><a href="#Less" data-toggle="tab">Less</a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right hidden-sm">
+            <li class="active"><a href="./Login.html" >Log Out <span class="sr-only">(current)</span></a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <!--Content-->
+    <div class="container">
+      <!-- Main component for a primary marketing message or call to action -->
+      <script type="text/javascript" src="./json/SVMprediction.json"></script>
+      <script type="text/javascript" src="./json/ANNprediction.json"></script>
+      <script type="text/javascript" src="./json/LSTMprediction.json"></script>
+      <script type="text/javascript" src="./json/BYSprediction.json"></script>
+      <div class="tab-content">
+        <div class="tab-pane active" id="Home">
+        </br></br></br>
+            <blockquote>
+              <h1>Welcome!</h1></br>
+              <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+            </blockquote>
+        </div>
+        <div class="tab-pane" id="AABA">
+        </br>
+          <div class="tabbable"> <!-- Only required for left/right tabs -->
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#AABA1" data-toggle="tab">Historical Data</a></li>
+              <li><a href="#AABA2" data-toggle="tab">Real_time Data</a></li>
+              <li><a href="#AABA3" data-toggle="tab">Prediction</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Indicators <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#AABA_ROC_chart" data-toggle="tab">ROC</a></li>
+                  <li><a href="#AABA_OBV_chart" data-toggle="tab">OBV</a></li>
+                  <li><a href="#AABA_MACD_chart" data-toggle="tab">MACD</a></li>
+                </ul>
+              </li>
+              <li><button onclick="">Submit</button></li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="AABA1">
+                <div id="AABA_Historial_chart" style="width: 850px; height: 550px;"></div>
+              </div>
+              <!-- AABA_Historial_chart -->
+              <script type="text/javascript" src="./json/aabahistory.json"></script>
+              <script type="text/javascript">
+                var obj=JSON.parse(aaba_history_chart_data);
+                var _Open_Price = [], _CLose_Price = [], _H_Volume = [], _Low_Price = [], _Date = [], _High_Price = [];
+                for(var i=0;i<obj.aaba.length;i++){
+                  _Open_Price.push(obj.aaba[i].Open_Price);
+                  _CLose_Price.push(obj.aaba[i].CLose_Price);
+                  _H_Volume.push(obj.aaba[i].H_Volume);
+                  _Low_Price.push(obj.aaba[i].Low_Price);
+                  _Date.push(obj.aaba[i].Date);
+                  _High_Price.push(obj.aaba[i].High_Price);
+                }
+                var chart = echarts.init(document.getElementById('AABA_Historial_chart'));
+                var option = {
+                  title: {
+                    text: 'AABA_Historial'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['CLose_Price','H_Volume']
+                  },
+                  dataZoom : {
+                    show : true,
+                    realtime : true,
+                    start : 20,
+                    end : 80
+                  },
+                  xAxis: {
+                    data: _Date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'CLose_Price',
+                      type: 'line',
+                      data: _CLose_Price
+                    },
+                    {
+                      name: 'H_Volume',
+                      type: 'bar',
+                      data: _H_Volume
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="AABA2">
+                <div id="AABA_Real_Time_chart" style="width: 850px; height: 550px;"></div>
+              </div>
+              <!-- AABA_Real_Time_chart -->
+              <script type="text/javascript" src="./json/aabarealtime.json"></script>
+              <script type="text/javascript">
+                var obj=JSON.parse(aaba_realtime_chart_data);
+                var _Open_Price = [], _CLose_Price = [], _H_Volume = [], _Low_Price = [], _Date = [], _High_Price = [];
+                for(var i=0;i<obj.aaba.length;i++){
+                  _Open_Price.push(obj.aaba[i].Open_Price);
+                  _CLose_Price.push(obj.aaba[i].CLose_Price);
+                  _H_Volume.push(obj.aaba[i].H_Volume);
+                  _Low_Price.push(obj.aaba[i].Low_Price);
+                  _Date.push(obj.aaba[i].Date);
+                  _High_Price.push(obj.aaba[i].High_Price);
+                }
+                var chart = echarts.init(document.getElementById('AABA_Real_Time_chart'));
+                var option = {
+                  title: {
+                    text: 'AABA_Real_Time'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['CLose_Price','H_Volume']
+                  },
+                  dataZoom : {
+                    show : true,
+                    realtime : true,
+                    start : 20,
+                    end : 80
+                  },
+                  xAxis: {
+                    data: _Date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'CLose_Price',
+                      type: 'line',
+                      data: _CLose_Price
+                    },
+                    {
+                      name: 'H_Volume',
+                      type: 'bar',
+                      data: _H_Volume
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="AABA3">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Prediction</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>SVM</td>
+                          <td id="AABA_SVM"></td>
+                        </tr>
+                        <tr>
+                          <td>ANN</td>
+                          <td id="AABA_ANN"></td>
+                        </tr>
+                        <tr>
+                          <td>LSTM</td>
+                          <td id="AABA_LSTM"></td>
+                        </tr>
+                        <tr>
+                          <td>BYS</td>
+                          <td id="AABA_BYS"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <!-- AABA prediction chart-->
+              <script type="text/javascript">
+                var SVMtxt =JSON.parse(SVM_Prediction_data);
+                var ANNtxt =JSON.parse(ANN_Prediction_data);
+                var LSTMtxt =JSON.parse(LSTM_Prediction_data);
+                var BYStxt =JSON.parse(BYS_Prediction_data);
+                document.getElementById("AABA_SVM").innerHTML=SVMtxt.data[1].AABANextDayValue;
+                document.getElementById("AABA_ANN").innerHTML=ANNtxt.data[1].AABANextDayValue;
+                document.getElementById("AABA_LSTM").innerHTML=LSTMtxt.data[1].AABANextDayValue;
+                document.getElementById("AABA_BYS").innerHTML=BYStxt.data[1].AABANextDayValue;
+              </script>
+              <div class="tab-pane" id="AABA_ROC_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_AABA_ROC -->
+              <script type="text/javascript" src="./json/AABAROCindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(AABA_ROC_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].ROC);
+                }
+                var chart = echarts.init(document.getElementById('AABA_ROC_chart'));
+                var option = {
+                  title: {
+                    text: 'AABA_ROC'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['ROC']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'ROC',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="AABA_OBV_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_AABA_OBV -->
+              <script type="text/javascript" src="./json/AABAOBVindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(AABA_OBV_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].OBV);
+                }
+                var chart = echarts.init(document.getElementById('AABA_OBV_chart'));
+                var option = {
+                  title: {
+                    text: 'AABA_OBV'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['OBV']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'OBV',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="AABA_MACD_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_AABA_MACD -->
+              <script type="text/javascript" src="./json/AABAMACDindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(AABA_MACD_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].MACD);
+                }
+                var chart = echarts.init(document.getElementById('AABA_MACD_chart'));
+                var option = {
+                  title: {
+                    text: 'AABA_MACD'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['MACD']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'MACD',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="AMZN">
+        </br>
+          <div class="tabbable"> <!-- Only required for left/right tabs -->
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#AMZN1" data-toggle="tab">Historical Data</a></li>
+              <li><a href="#AMZN2" data-toggle="tab">Real_time Data</a></li>
+              <li><a href="#AMZN3" data-toggle="tab">Prediction</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Indicators <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#AMZN_ROC_chart" data-toggle="tab">ROC</a>
+                  <li><a href="#AMZN_OBV_chart" data-toggle="tab">OBV</a></li>
+                  <li><a href="#AMZN_MACD_chart" data-toggle="tab">MACD</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="AMZN1">
+                <div id="AMZN_Historial_chart" style="width: 850px; height: 550px;"></div>
+              </div>
+              <!-- AMZN_Historial_chart -->
+              <script type="text/javascript" src="./json/amznhistory.json"></script>
+              <script type="text/javascript">
+                var obj=JSON.parse(amzn_history_chart_data);
+                var _Open_Price = [], _CLose_Price = [], _H_Volume = [], _Low_Price = [], _Date = [], _High_Price = [];
+                for(var i=0;i<obj.amzn.length;i++){
+                  _Open_Price.push(obj.amzn[i].Open_Price);
+                  _CLose_Price.push(obj.amzn[i].CLose_Price);
+                  _H_Volume.push(obj.amzn[i].H_Volume);
+                  _Low_Price.push(obj.amzn[i].Low_Price);
+                  _Date.push(obj.amzn[i].Date);
+                  _High_Price.push(obj.amzn[i].High_Price);
+                }
+                var chart = echarts.init(document.getElementById('AMZN_Historial_chart'));
+                var option = {
+                  title: {
+                    text: 'AMZN_Historial'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['CLose_Price','H_Volume']
+                  },
+                  dataZoom : {
+                    show : true,
+                    realtime : true,
+                    start : 20,
+                    end : 80
+                  },
+                  xAxis: {
+                    data: _Date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'CLose_Price',
+                      type: 'line',
+                      data: _CLose_Price
+                    },
+                    {
+                      name: 'H_Volume',
+                      type: 'bar',
+                      data: _H_Volume
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="AMZN2">
+                <div id="AMZN_Real_Time_chart" style="width: 850px; height: 550px;"></div>
+              </div>
+              <!-- AMZN_Real_Time_chart -->
+              <script type="text/javascript" src="./json/amznrealtime.json"></script>
+              <script type="text/javascript">
+                var obj=JSON.parse(amzn_realtime_chart_data);
+                var _Open_Price = [], _CLose_Price = [], _H_Volume = [], _Low_Price = [], _Date = [], _High_Price = [];
+                for(var i=0;i<obj.amzn.length;i++){
+                  _Open_Price.push(obj.amzn[i].Open_Price);
+                  _CLose_Price.push(obj.amzn[i].CLose_Price);
+                  _H_Volume.push(obj.amzn[i].H_Volume);
+                  _Low_Price.push(obj.amzn[i].Low_Price);
+                  _Date.push(obj.amzn[i].Date);
+                  _High_Price.push(obj.amzn[i].High_Price);
+                }
+                var chart = echarts.init(document.getElementById('AMZN_Real_Time_chart'));
+                var option = {
+                  title: {
+                    text: 'AMZN_Real_Time'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['CLose_Price','H_Volume']
+                  },
+                  dataZoom : {
+                    show : true,
+                    realtime : true,
+                    start : 20,
+                    end : 80
+                  },
+                  xAxis: {
+                    data: _Date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'CLose_Price',
+                      type: 'line',
+                      data: _CLose_Price
+                    },
+                    {
+                      name: 'H_Volume',
+                      type: 'bar',
+                      data: _H_Volume
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="AMZN3">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Prediction</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>SVM</td>
+                          <td id="AMZN_SVM"></td>
+                        </tr>
+                        <tr>
+                          <td>ANN</td>
+                          <td id="AMZN_ANN"></td>
+                        </tr>
+                        <tr>
+                          <td>LSTM</td>
+                          <td id="AMZN_LSTM"></td>
+                        </tr>
+                        <tr>
+                          <td>BYS</td>
+                          <td id="AMZN_BYS"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <!-- AMZN prediction chart-->
+              <script type="text/javascript">
+                var SVMtxt =JSON.parse(SVM_Prediction_data);
+                var ANNtxt =JSON.parse(ANN_Prediction_data);
+                var LSTMtxt =JSON.parse(LSTM_Prediction_data);
+                var BYStxt =JSON.parse(BYS_Prediction_data);
+                document.getElementById("AMZN_SVM").innerHTML=SVMtxt.data[2].AMZNNextDayValue;
+                document.getElementById("AMZN_ANN").innerHTML=ANNtxt.data[2].AMZNNextDayValue;
+                document.getElementById("AMZN_LSTM").innerHTML=LSTMtxt.data[2].AMZNNextDayValue;
+                document.getElementById("AMZN_BYS").innerHTML=BYStxt.data[2].AMZNNextDayValue;
+              </script>
+              <div class="tab-pane" id="AMZN_ROC_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_AMZN_ROC -->
+              <script type="text/javascript" src="./json/AMZNROCindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(AMZN_ROC_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].ROC);
+                }
+                var chart = echarts.init(document.getElementById('AMZN_ROC_chart'));
+                var option = {
+                  title: {
+                    text: 'AMZN_ROC'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['ROC']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'ROC',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="AMZN_OBV_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_AMZN_OBV -->
+              <script type="text/javascript" src="./json/AMZNOBVindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(AMZN_OBV_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].OBV);
+                }
+                var chart = echarts.init(document.getElementById('AMZN_OBV_chart'));
+                var option = {
+                  title: {
+                    text: 'AMZN_OBV'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['OBV']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'OBV',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="AMZN_MACD_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_AMZN_MACD -->
+              <script type="text/javascript" src="./json/AMZNMACDindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(AMZN_MACD_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].MACD);
+                }
+                var chart = echarts.init(document.getElementById('AMZN_MACD_chart'));
+                var option = {
+                  title: {
+                    text: 'AMZN_MACD'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['MACD']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'MACD',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="BABA">
+        </br>
+          <div class="tabbable"> <!-- Only required for left/right tabs -->
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#BABA1" data-toggle="tab">Historical Data</a></li>
+              <li><a href="#BABA2" data-toggle="tab">Real_time Data</a></li>
+              <li><a href="#BABA3" data-toggle="tab">Prediction</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Indicators <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#BABA_ROC_chart" data-toggle="tab">ROC</a></li>
+                  <li><a href="#BABA_OBV_chart" data-toggle="tab">OBV</a></li>
+                  <li><a href="#BABA_MACD_chart" data-toggle="tab">MACD</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="BABA1">
+                <div id="BABA_Historial_chart" style="width: 850px; height: 550px;"></div>
+              </div>
+              <!-- BABA_Historial_chart -->
+              <script type="text/javascript" src="./json/babahistory.json"></script>
+              <script type="text/javascript">
+                var obj=JSON.parse(baba_history_chart_data);
+                var _Open_Price = [], _CLose_Price = [], _H_Volume = [], _Low_Price = [], _Date = [], _High_Price = [];
+                for(var i=0;i<obj.baba.length;i++){
+                  _Open_Price.push(obj.baba[i].Open_Price);
+                  _CLose_Price.push(obj.baba[i].CLose_Price);
+                  _H_Volume.push(obj.baba[i].H_Volume);
+                  _Low_Price.push(obj.baba[i].Low_Price);
+                  _Date.push(obj.baba[i].Date);
+                  _High_Price.push(obj.baba[i].High_Price);
+                }
+                var chart = echarts.init(document.getElementById('BABA_Historial_chart'));
+                var option = {
+                  title: {
+                    text: 'BABA_Historial'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['CLose_Price','H_Volume']
+                  },
+                  dataZoom : {
+                    show : true,
+                    realtime : true,
+                    start : 20,
+                    end : 80
+                  },
+                  xAxis: {
+                    data: _Date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'CLose_Price',
+                      type: 'line',
+                      data: _CLose_Price
+                    },
+                    {
+                      name: 'H_Volume',
+                      type: 'bar',
+                      data: _H_Volume
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="BABA2">
+                <div id="BABA_Real_Time_chart" style="width: 850px; height: 550px;"></div>
+              </div>
+              <!-- BABA_Real_Time_chart -->
+              <script type="text/javascript" src="./json/babarealtime.json"></script>
+              <script type="text/javascript">
+                var obj=JSON.parse(baba_realtime_chart_data);
+                var _Open_Price = [], _CLose_Price = [], _H_Volume = [], _Low_Price = [], _Date = [], _High_Price = [];
+                for(var i=0;i<obj.baba.length;i++){
+                  _Open_Price.push(obj.baba[i].Open_Price);
+                  _CLose_Price.push(obj.baba[i].CLose_Price);
+                  _H_Volume.push(obj.baba[i].H_Volume);
+                  _Low_Price.push(obj.baba[i].Low_Price);
+                  _Date.push(obj.baba[i].Date);
+                  _High_Price.push(obj.baba[i].High_Price);
+                }
+                var chart = echarts.init(document.getElementById('BABA_Real_Time_chart'));
+                var option = {
+                  title: {
+                    text: 'BABA_Real_Time'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['CLose_Price','H_Volume']
+                  },
+                  dataZoom : {
+                    show : true,
+                    realtime : true,
+                    start : 20,
+                    end : 80
+                  },
+                  xAxis: {
+                    data: _Date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'CLose_Price',
+                      type: 'line',
+                      data: _CLose_Price
+                    },
+                    {
+                      name: 'H_Volume',
+                      type: 'bar',
+                      data: _H_Volume
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="BABA3">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Prediction</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>SVM</td>
+                          <td id="BABA_SVM"></td>
+                        </tr>
+                        <tr>
+                          <td>ANN</td>
+                          <td id="BABA_ANN"></td>
+                        </tr>
+                        <tr>
+                          <td>LSTM</td>
+                          <td id="BABA_LSTM"></td>
+                        </tr>
+                        <tr>
+                          <td>BYS</td>
+                          <td id="BABA_BYS"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <!-- BABA prediction chart-->
+              <script type="text/javascript">
+                var SVMtxt =JSON.parse(SVM_Prediction_data);
+                var ANNtxt =JSON.parse(ANN_Prediction_data);
+                var LSTMtxt =JSON.parse(LSTM_Prediction_data);
+                var BYStxt =JSON.parse(BYS_Prediction_data);
+                document.getElementById("BABA_BYS").innerHTML=BYStxt.data[8].BABANextDayValue;
+                document.getElementById("BABA_SVM").innerHTML=SVMtxt.data[8].BABANextDayValue;
+                document.getElementById("BABA_ANN").innerHTML=ANNtxt.data[8].BABANextDayValue;
+                document.getElementById("BABA_LSTM").innerHTML=LSTMtxt.data[8].BABANextDayValue;
+              </script>
+              <div class="tab-pane" id="BABA_ROC_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_BABA_ROC -->
+              <script type="text/javascript" src="./json/BABAROCindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(BABA_ROC_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].ROC);
+                }
+                var chart = echarts.init(document.getElementById('BABA_ROC_chart'));
+                var option = {
+                  title: {
+                    text: 'BABA_ROC'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['ROC']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'ROC',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="BABA_OBV_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_BABA_OBV -->
+              <script type="text/javascript" src="./json/BABAOBVindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(BABA_OBV_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].OBV);
+                }
+                var chart = echarts.init(document.getElementById('BABA_OBV_chart'));
+                var option = {
+                  title: {
+                    text: 'BABA_OBV'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['OBV']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'OBV',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="BABA_MACD_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_BABA_MACD -->
+              <script type="text/javascript" src="./json/BABAMACDindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(BABA_MACD_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].MACD);
+                }
+                var chart = echarts.init(document.getElementById('BABA_MACD_chart'));
+                var option = {
+                  title: {
+                    text: 'BABA_MACD'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['MACD']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'MACD',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="FB">
+        </br>
+          <div class="tabbable"> <!-- Only required for left/right tabs -->
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#FB1" data-toggle="tab">Historical Data</a></li>
+              <li><a href="#FB2" data-toggle="tab">Real_time Data</a></li>
+              <li><a href="#FB3" data-toggle="tab">Prediction</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Indicators <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#FB_ROC_chart" data-toggle="tab">ROC</a></li>
+                  <li><a href="#FB_OBV_chart" data-toggle="tab">OBV</a></li>
+                  <li><a href="#FB_MACD_chart" data-toggle="tab">MACD</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="FB1">
+                <div id="FB_Historial_chart" style="width: 850px; height: 550px;"></div>
+              </div>
+              <!-- FB_Historial_chart -->
+              <script type="text/javascript" src="./json/fbhistory.json"></script>
+              <script type="text/javascript">
+                var obj=JSON.parse(fb_history_chart_data);
+                var _Open_Price = [], _CLose_Price = [], _H_Volume = [], _Low_Price = [], _Date = [], _High_Price = [];
+                for(var i=0;i<obj.fb.length;i++){
+                  _Open_Price.push(obj.fb[i].Open_Price);
+                  _CLose_Price.push(obj.fb[i].CLose_Price);
+                  _H_Volume.push(obj.fb[i].H_Volume);
+                  _Low_Price.push(obj.fb[i].Low_Price);
+                  _Date.push(obj.fb[i].Date);
+                  _High_Price.push(obj.fb[i].High_Price);
+                }
+                var chart = echarts.init(document.getElementById('FB_Historial_chart'));
+                var option = {
+                  title: {
+                    text: 'FB_Historial'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['CLose_Price','H_Volume']
+                  },
+                  dataZoom : {
+                    show : true,
+                    realtime : true,
+                    start : 20,
+                    end : 80
+                  },
+                  xAxis: {
+                    data: _Date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'CLose_Price',
+                      type: 'line',
+                      data: _CLose_Price
+                    },
+                    {
+                      name: 'H_Volume',
+                      type: 'bar',
+                      data: _H_Volume
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="FB2">
+                <div id="FB_Real_Time_chart" style="width: 850px; height: 550px;"></div>
+              </div>
+              <!-- FB_Real_Time_chart -->
+              <script type="text/javascript" src="./json/fbrealtime.json"></script>
+              <script type="text/javascript">
+                var obj=JSON.parse(fb_realtime_chart_data);
+                var _Open_Price = [], _CLose_Price = [], _H_Volume = [], _Low_Price = [], _Date = [], _High_Price = [];
+                for(var i=0;i<obj.fb.length;i++){
+                  _Open_Price.push(obj.fb[i].Open_Price);
+                  _CLose_Price.push(obj.fb[i].CLose_Price);
+                  _H_Volume.push(obj.fb[i].H_Volume);
+                  _Low_Price.push(obj.fb[i].Low_Price);
+                  _Date.push(obj.fb[i].Date);
+                  _High_Price.push(obj.fb[i].High_Price);
+                }
+                var chart = echarts.init(document.getElementById('FB_Real_Time_chart'));
+                var option = {
+                  title: {
+                    text: 'FB_Real_Time'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['CLose_Price','H_Volume']
+                  },
+                  dataZoom : {
+                    show : true,
+                    realtime : true,
+                    start : 20,
+                    end : 80
+                  },
+                  xAxis: {
+                    data: _Date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'CLose_Price',
+                      type: 'line',
+                      data: _CLose_Price
+                    },
+                    {
+                      name: 'H_Volume',
+                      type: 'bar',
+                      data: _H_Volume
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="FB3">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Prediction</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>SVM</td>
+                          <td id="FB_SVM"></td>
+                        </tr>
+                        <tr>
+                          <td>ANN</td>
+                          <td id="FB_ANN"></td>
+                        </tr>
+                        <tr>
+                          <td>LSTM</td>
+                          <td id="FB_LSTM"></td>
+                        </tr>
+                        <tr>
+                          <td>BYS</td>
+                          <td id="FB_BYS"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <!-- FB prediction chart-->
+              <script type="text/javascript">
+                var SVMtxt =JSON.parse(SVM_Prediction_data);
+                var ANNtxt =JSON.parse(ANN_Prediction_data);
+                var LSTMtxt =JSON.parse(LSTM_Prediction_data);
+                var BYStxt =JSON.parse(BYS_Prediction_data);
+                document.getElementById("FB_BYS").innerHTML=BYStxt.data[4].FBNextDayValue;
+                document.getElementById("FB_SVM").innerHTML=SVMtxt.data[4].FBNextDayValue;
+                document.getElementById("FB_ANN").innerHTML=ANNtxt.data[4].FBNextDayValue;
+                document.getElementById("FB_LSTM").innerHTML=LSTMtxt.data[4].FBNextDayValue;
+              </script>
+              <div class="tab-pane" id="FB_ROC_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_FB_ROC -->
+              <script type="text/javascript" src="./json/FBROCindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(FB_ROC_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].ROC);
+                }
+                var chart = echarts.init(document.getElementById('FB_ROC_chart'));
+                var option = {
+                  title: {
+                    text: 'FB_ROC'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['ROC']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'ROC',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="FB_OBV_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_FB_OBV -->
+              <script type="text/javascript" src="./json/FBOBVindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(FB_OBV_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].OBV);
+                }
+                var chart = echarts.init(document.getElementById('FB_OBV_chart'));
+                var option = {
+                  title: {
+                    text: 'FB_OBV'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['OBV']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'OBV',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="FB_MACD_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_FB_MACD -->
+              <script type="text/javascript" src="./json/FBMACDindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(FB_MACD_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].MACD);
+                }
+                var chart = echarts.init(document.getElementById('FB_MACD_chart'));
+                var option = {
+                  title: {
+                    text: 'FB_MACD'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['MACD']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'MACD',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="GOOG">
+        </br>
+          <div class="tabbable"> <!-- Only required for left/right tabs -->
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#GOOG1" data-toggle="tab">Historical Data</a></li>
+              <li><a href="#GOOG2" data-toggle="tab">Real_time Data</a></li>
+              <li><a href="#GOOG3" data-toggle="tab">Prediction</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Indicators <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#GOOG_ROC_chart" data-toggle="tab">ROC</a></li>
+                  <li><a href="#GOOG_OBV_chart" data-toggle="tab">OBV</a></li>
+                  <li><a href="#GOOG_MACD_chart" data-toggle="tab">MACD</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="GOOG1">
+                <div id="GOOG_Historial_chart" style="width: 850px; height: 550px;"></div>
+              </div>
+              <!-- GOOG_Historial_chart -->
+              <script type="text/javascript" src="./json/googhistory.json"></script>
+              <script type="text/javascript">
+                var obj=JSON.parse(goog_history_chart_data);
+                var _Open_Price = [], _CLose_Price = [], _H_Volume = [], _Low_Price = [], _Date = [], _High_Price = [];
+                for(var i=0;i<obj.goog.length;i++){
+                  _Open_Price.push(obj.goog[i].Open_Price);
+                  _CLose_Price.push(obj.goog[i].CLose_Price);
+                  _H_Volume.push(obj.goog[i].H_Volume);
+                  _Low_Price.push(obj.goog[i].Low_Price);
+                  _Date.push(obj.goog[i].Date);
+                  _High_Price.push(obj.goog[i].High_Price);
+                }
+                var chart = echarts.init(document.getElementById('GOOG_Historial_chart'));
+                var option = {
+                  title: {
+                    text: 'GOOG_Historial'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['CLose_Price','H_Volume']
+                  },
+                  dataZoom : {
+                    show : true,
+                    realtime : true,
+                    start : 20,
+                    end : 80
+                  },
+                  xAxis: {
+                    data: _Date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'CLose_Price',
+                      type: 'line',
+                      data: _CLose_Price
+                    },
+                    {
+                      name: 'H_Volume',
+                      type: 'bar',
+                      data: _H_Volume
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="GOOG2">
+                <div id="GOOG_Real_Time_chart" style="width: 850px; height: 550px;"></div>
+              </div>
+              <!-- GOOG_Real_Time_chart -->
+              <script type="text/javascript" src="./json/googrealtime.json"></script>
+              <script type="text/javascript">
+                var obj=JSON.parse(goog_realtime_chart_data);
+                var _Open_Price = [], _CLose_Price = [], _H_Volume = [], _Low_Price = [], _Date = [], _High_Price = [];
+                for(var i=0;i<obj.goog.length;i++){
+                  _Open_Price.push(obj.goog[i].Open_Price);
+                  _CLose_Price.push(obj.goog[i].CLose_Price);
+                  _H_Volume.push(obj.goog[i].H_Volume);
+                  _Low_Price.push(obj.goog[i].Low_Price);
+                  _Date.push(obj.goog[i].Date);
+                  _High_Price.push(obj.goog[i].High_Price);
+                }
+                var chart = echarts.init(document.getElementById('GOOG_Real_Time_chart'));
+                var option = {
+                  title: {
+                    text: 'GOOG_Real_Time'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['CLose_Price','H_Volume']
+                  },
+                  dataZoom : {
+                    show : true,
+                    realtime : true,
+                    start : 20,
+                    end : 80
+                  },
+                  xAxis: {
+                    data: _Date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'CLose_Price',
+                      type: 'line',
+                      data: _CLose_Price
+                    },
+                    {
+                      name: 'H_Volume',
+                      type: 'bar',
+                      data: _H_Volume
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="GOOG3">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Prediction</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>SVM</td>
+                          <td id="GOOG_SVM"></td>
+                        </tr>
+                        <tr>
+                          <td>ANN</td>
+                          <td id="GOOG_ANN"></td>
+                        </tr>
+                        <tr>
+                          <td>LSTM</td>
+                          <td id="GOOG_LSTM"></td>
+                        </tr>
+                        <tr>
+                          <td>BYS</td>
+                          <td id="GOOG_BYS"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <!-- GOOG prediction chart-->
+              <script type="text/javascript">
+                var SVMtxt =JSON.parse(SVM_Prediction_data);
+                var ANNtxt =JSON.parse(ANN_Prediction_data);
+                var LSTMtxt =JSON.parse(LSTM_Prediction_data);
+                var BYStxt =JSON.parse(BYS_Prediction_data);
+                document.getElementById("GOOG_BYS").innerHTML=BYStxt.data[0].GOOGNextDayValue;
+                document.getElementById("GOOG_SVM").innerHTML=SVMtxt.data[0].GOOGNextDayValue;
+                document.getElementById("GOOG_ANN").innerHTML=ANNtxt.data[0].GOOGNextDayValue;
+                document.getElementById("GOOG_LSTM").innerHTML=LSTMtxt.data[0].GOOGNextDayValue;
+              </script>
+              <div class="tab-pane" id="GOOG_ROC_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_GOOG_ROC -->
+              <script type="text/javascript" src="./json/GOOGROCindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(GOOG_ROC_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].ROC);
+                }
+                var chart = echarts.init(document.getElementById('GOOG_ROC_chart'));
+                var option = {
+                  title: {
+                    text: 'GOOG_ROC'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['ROC']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'ROC',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="GOOG_OBV_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_GOOG_OBV -->
+              <script type="text/javascript" src="./json/GOOGOBVindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(GOOG_OBV_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].OBV);
+                }
+                var chart = echarts.init(document.getElementById('GOOG_OBV_chart'));
+                var option = {
+                  title: {
+                    text: 'GOOG_OBV'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['OBV']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'OBV',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="GOOG_MACD_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_GOOG_MACD -->
+              <script type="text/javascript" src="./json/GOOGMACDindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(GOOG_MACD_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].MACD);
+                }
+                var chart = echarts.init(document.getElementById('GOOG_MACD_chart'));
+                var option = {
+                  title: {
+                    text: 'GOOG_MACD'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['MACD']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'MACD',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="NFLX">
+        </br>
+          <div class="tabbable"> <!-- Only required for left/right tabs -->
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#NFLX1" data-toggle="tab">Historical Data</a></li>
+              <li><a href="#NFLX2" data-toggle="tab">Real_time Data</a></li>
+              <li><a href="#NFLX3" data-toggle="tab">Prediction</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Indicators <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#NFLX_ROC_chart" data-toggle="tab">ROC</a></li>
+                  <li><a href="#NFLX_OBV_chart" data-toggle="tab">OBV</a></li>
+                  <li><a href="#NFLX_MACD_chart" data-toggle="tab">MACD</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="NFLX1">
+                <div id="NFLX_Historial_chart" style="width: 850px; height: 550px;"></div>
+              </div>
+              <!-- NFLX_Historial_chart -->
+              <script type="text/javascript" src="./json/nflxhistory.json"></script>
+              <script type="text/javascript">
+                var obj=JSON.parse(nflx_history_chart_data);
+                var _Open_Price = [], _CLose_Price = [], _H_Volume = [], _Low_Price = [], _Date = [], _High_Price = [];
+                for(var i=0;i<obj.nflx.length;i++){
+                  _Open_Price.push(obj.nflx[i].Open_Price);
+                  _CLose_Price.push(obj.nflx[i].CLose_Price);
+                  _H_Volume.push(obj.nflx[i].H_Volume);
+                  _Low_Price.push(obj.nflx[i].Low_Price);
+                  _Date.push(obj.nflx[i].Date);
+                  _High_Price.push(obj.nflx[i].High_Price);
+                }
+                var chart = echarts.init(document.getElementById('NFLX_Historial_chart'));
+                var option = {
+                  title: {
+                    text: 'NFLX_Historial'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['CLose_Price','H_Volume']
+                  },
+                  dataZoom : {
+                    show : true,
+                    realtime : true,
+                    start : 20,
+                    end : 80
+                  },
+                  xAxis: {
+                    data: _Date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'CLose_Price',
+                      type: 'line',
+                      data: _CLose_Price
+                    },
+                    {
+                      name: 'H_Volume',
+                      type: 'bar',
+                      data: _H_Volume
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="NFLX2">
+                <div id="NFLX_Real_Time_chart" style="width: 850px; height: 550px;"></div>
+              </div>
+              <!-- NFLX_Real_Time_chart -->
+              <script type="text/javascript" src="./json/nflxrealtime.json"></script>
+              <script type="text/javascript">
+                var obj=JSON.parse(nflx_realtime_chart_data);
+                var _Open_Price = [], _CLose_Price = [], _H_Volume = [], _Low_Price = [], _Date = [], _High_Price = [];
+                for(var i=0;i<obj.nflx.length;i++){
+                  _Open_Price.push(obj.nflx[i].Open_Price);
+                  _CLose_Price.push(obj.nflx[i].CLose_Price);
+                  _H_Volume.push(obj.nflx[i].H_Volume);
+                  _Low_Price.push(obj.nflx[i].Low_Price);
+                  _Date.push(obj.nflx[i].Date);
+                  _High_Price.push(obj.nflx[i].High_Price);
+                }
+                var chart = echarts.init(document.getElementById('NFLX_Real_Time_chart'));
+                var option = {
+                  title: {
+                    text: 'NFLX_Real_Time'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['CLose_Price','H_Volume']
+                  },
+                  dataZoom : {
+                    show : true,
+                    realtime : true,
+                    start : 20,
+                    end : 80
+                  },
+                  xAxis: {
+                    data: _Date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'CLose_Price',
+                      type: 'line',
+                      data: _CLose_Price
+                    },
+                    {
+                      name: 'H_Volume',
+                      type: 'bar',
+                      data: _H_Volume
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="NFLX3">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Prediction</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>SVM</td>
+                          <td id="NFLX_SVM"></td>
+                        </tr>
+                        <tr>
+                          <td>ANN</td>
+                          <td id="NFLX_ANN"></td>
+                        </tr>
+                        <tr>
+                          <td>LSTM</td>
+                          <td id="NFLX_LSTM"></td>
+                        </tr>
+                        <tr>
+                          <td>BYS</td>
+                          <td id="NFLX_BYS"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <!-- NFLX prediction chart-->
+              <script type="text/javascript">
+                var SVMtxt =JSON.parse(SVM_Prediction_data);
+                var ANNtxt =JSON.parse(ANN_Prediction_data);
+                var LSTMtxt =JSON.parse(LSTM_Prediction_data);
+                var BYStxt =JSON.parse(BYS_Prediction_data);
+                document.getElementById("NFLX_BYS").innerHTML=BYStxt.data[6].NFLXNextDayValue;
+                document.getElementById("NFLX_SVM").innerHTML=SVMtxt.data[6].NFLXNextDayValue;
+                document.getElementById("NFLX_ANN").innerHTML=ANNtxt.data[6].NFLXNextDayValue;
+                document.getElementById("NFLX_LSTM").innerHTML=LSTMtxt.data[6].NFLXNextDayValue;
+              </script>
+              <div class="tab-pane" id="NFLX_ROC_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_NFLX_ROC -->
+              <script type="text/javascript" src="./json/NFLXROCindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(NFLX_ROC_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].ROC);
+                }
+                var chart = echarts.init(document.getElementById('NFLX_ROC_chart'));
+                var option = {
+                  title: {
+                    text: 'NFLX_ROC'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['ROC']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'ROC',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="NFLX_OBV_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_NFLX_OBV -->
+              <script type="text/javascript" src="./json/NFLXOBVindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(NFLX_OBV_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].OBV);
+                }
+                var chart = echarts.init(document.getElementById('NFLX_OBV_chart'));
+                var option = {
+                  title: {
+                    text: 'NFLX_OBV'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['OBV']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'OBV',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="NFLX_MACD_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_NFLX_MACD -->
+              <script type="text/javascript" src="./json/NFLXMACDindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(NFLX_MACD_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].MACD);
+                }
+                var chart = echarts.init(document.getElementById('NFLX_MACD_chart'));
+                var option = {
+                  title: {
+                    text: 'NFLX_MACD'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['MACD']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'MACD',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="OPK">
+        </br>
+          <div class="tabbable"> <!-- Only required for left/right tabs -->
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#OPK1" data-toggle="tab">Historical Data</a></li>
+              <li><a href="#OPK2" data-toggle="tab">Real_time Data</a></li>
+              <li><a href="#OPK3" data-toggle="tab">Prediction</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Indicators <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#OPK_ROC_chart" data-toggle="tab">ROC</a></li>
+                  <li><a href="#OPK_OBV_chart" data-toggle="tab">OBV</a></li>
+                  <li><a href="#OPK_MACD_chart" data-toggle="tab">MACD</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="OPK1">
+                <div id="OPK_Historial_chart" style="width: 850px; height: 550px;"></div>
+              </div>
+              <!-- OPK_Historial_chart -->
+              <script type="text/javascript" src="./json/opkhistory.json"></script>
+              <script type="text/javascript">
+                var obj=JSON.parse(opk_history_chart_data);
+                var _Open_Price = [], _CLose_Price = [], _H_Volume = [], _Low_Price = [], _Date = [], _High_Price = [];
+                for(var i=0;i<obj.opk.length;i++){
+                  _Open_Price.push(obj.opk[i].Open_Price);
+                  _CLose_Price.push(obj.opk[i].CLose_Price);
+                  _H_Volume.push(obj.opk[i].H_Volume);
+                  _Low_Price.push(obj.opk[i].Low_Price);
+                  _Date.push(obj.opk[i].Date);
+                  _High_Price.push(obj.opk[i].High_Price);
+                }
+                var chart = echarts.init(document.getElementById('OPK_Historial_chart'));
+                var option = {
+                  title: {
+                    text: 'OPK_Historial'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['CLose_Price','H_Volume']
+                  },
+                  dataZoom : {
+                    show : true,
+                    realtime : true,
+                    start : 20,
+                    end : 80
+                  },
+                  xAxis: {
+                    data: _Date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'CLose_Price',
+                      type: 'line',
+                      data: _CLose_Price
+                    },
+                    {
+                      name: 'H_Volume',
+                      type: 'bar',
+                      data: _H_Volume
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="OPK2">
+                <div id="OPK_Real_Time_chart" style="width: 850px; height: 550px;"></div>
+              </div>
+              <!-- OPK_Real_Time_chart -->
+              <script type="text/javascript" src="./json/opkrealtime.json"></script>
+              <script type="text/javascript">
+                var obj=JSON.parse(opk_realtime_chart_data);
+                var _Open_Price = [], _CLose_Price = [], _H_Volume = [], _Low_Price = [], _Date = [], _High_Price = [];
+                for(var i=0;i<obj.opk.length;i++){
+                  _Open_Price.push(obj.opk[i].Open_Price);
+                  _CLose_Price.push(obj.opk[i].CLose_Price);
+                  _H_Volume.push(obj.opk[i].H_Volume);
+                  _Low_Price.push(obj.opk[i].Low_Price);
+                  _Date.push(obj.opk[i].Date);
+                  _High_Price.push(obj.opk[i].High_Price);
+                }
+                var chart = echarts.init(document.getElementById('OPK_Real_Time_chart'));
+                var option = {
+                  title: {
+                    text: 'OPK_Real_Time'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['CLose_Price','H_Volume']
+                  },
+                  dataZoom : {
+                    show : true,
+                    realtime : true,
+                    start : 20,
+                    end : 80
+                  },
+                  xAxis: {
+                    data: _Date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'CLose_Price',
+                      type: 'line',
+                      data: _CLose_Price
+                    },
+                    {
+                      name: 'H_Volume',
+                      type: 'bar',
+                      data: _H_Volume
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="OPK3">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Prediction</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>SVM</td>
+                          <td id="OPK_SVM"></td>
+                        </tr>
+                        <tr>
+                          <td>ANN</td>
+                          <td id="OPK_ANN"></td>
+                        </tr>
+                        <tr>
+                          <td>LSTM</td>
+                          <td id="OPK_LSTM"></td>
+                        </tr>
+                        <tr>
+                          <td>LSTM</td>
+                          <td id="OPK_BYS"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <!-- OPK prediction chart-->
+              <script type="text/javascript">
+                var SVMtxt =JSON.parse(SVM_Prediction_data);
+                var ANNtxt =JSON.parse(ANN_Prediction_data);
+                var LSTMtxt =JSON.parse(LSTM_Prediction_data);
+                var BYStxt =JSON.parse(BYS_Prediction_data);
+                document.getElementById("OPK_BYS").innerHTML=BYStxt.data[3].OPKNextDayValue;
+                document.getElementById("OPK_SVM").innerHTML=SVMtxt.data[3].OPKNextDayValue;
+                document.getElementById("OPK_ANN").innerHTML=ANNtxt.data[3].OPKNextDayValue;
+                document.getElementById("OPK_LSTM").innerHTML=LSTMtxt.data[3].OPKNextDayValue;
+              </script>
+              <div class="tab-pane" id="OPK_ROC_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_OPK_ROC -->
+              <script type="text/javascript" src="./json/OPKROCindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(OPK_ROC_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].ROC);
+                }
+                var chart = echarts.init(document.getElementById('OPK_ROC_chart'));
+                var option = {
+                  title: {
+                    text: 'OPK_ROC'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['ROC']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'ROC',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="OPK_OBV_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_OPK_OBV -->
+              <script type="text/javascript" src="./json/OPKOBVindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(OPK_OBV_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].OBV);
+                }
+                var chart = echarts.init(document.getElementById('OPK_OBV_chart'));
+                var option = {
+                  title: {
+                    text: 'OPK_OBV'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['OBV']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'OBV',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="OPK_MACD_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_OPK_MACD -->
+              <script type="text/javascript" src="./json/OPKMACDindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(OPK_MACD_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].MACD);
+                }
+                var chart = echarts.init(document.getElementById('OPK_MACD_chart'));
+                var option = {
+                  title: {
+                    text: 'OPK_MACD'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['MACD']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'MACD',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="SPLK">
+        </br>
+          <div class="tabbable">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#SPLK1" data-toggle="tab">Historical Data</a></li>
+              <li><a href="#SPLK2" data-toggle="tab">Real_time Data</a></li>
+              <li><a href="#SPLK3" data-toggle="tab">Prediction</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Indicators <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#SPLK_ROC_chart" data-toggle="tab">ROC</a></li>
+                  <li><a href="#SPLK_OBV_chart" data-toggle="tab">OBV</a></li>
+                  <li><a href="#SPLK_MACD_chart" data-toggle="tab">MACD</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="SPLK1">
+                <div id="SPLK_Historial_chart" style="width: 850px; height: 550px;"></div>
+              </div>
+              <!-- SPLK_Historial_chart -->
+              <script type="text/javascript" src="./json/splkhistory.json"></script>
+              <script type="text/javascript">
+                var obj=JSON.parse(splk_history_chart_data);
+                var _Open_Price = [], _CLose_Price = [], _H_Volume = [], _Low_Price = [], _Date = [], _High_Price = [];
+                for(var i=0;i<obj.splk.length;i++){
+                  _Open_Price.push(obj.splk[i].Open_Price);
+                  _CLose_Price.push(obj.splk[i].CLose_Price);
+                  _H_Volume.push(obj.splk[i].H_Volume);
+                  _Low_Price.push(obj.splk[i].Low_Price);
+                  _Date.push(obj.splk[i].Date);
+                  _High_Price.push(obj.splk[i].High_Price);
+                }
+                var chart = echarts.init(document.getElementById('SPLK_Historial_chart'));
+                var option = {
+                  title: {
+                    text: 'SPLK_Historial'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['CLose_Price','H_Volume']
+                  },
+                  dataZoom : {
+                    show : true,
+                    realtime : true,
+                    start : 20,
+                    end : 80
+                  },
+                  xAxis: {
+                    data: _Date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'CLose_Price',
+                      type: 'line',
+                      data: _CLose_Price
+                    },
+                    {
+                      name: 'H_Volume',
+                      type: 'bar',
+                      data: _H_Volume
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="SPLK2">
+                <div id="SPLK_Real_Time_chart" style="width: 850px; height: 550px;"></div>
+              </div>
+              <!-- SPLK_Real_Time_chart -->
+              <script type="text/javascript" src="./json/splkrealtime.json"></script>
+              <script type="text/javascript">
+                var obj=JSON.parse(splk_realtime_chart_data);
+                var _Open_Price = [], _CLose_Price = [], _H_Volume = [], _Low_Price = [], _Date = [], _High_Price = [];
+                for(var i=0;i<obj.splk.length;i++){
+                  _Open_Price.push(obj.splk[i].Open_Price);
+                  _CLose_Price.push(obj.splk[i].CLose_Price);
+                  _H_Volume.push(obj.splk[i].H_Volume);
+                  _Low_Price.push(obj.splk[i].Low_Price);
+                  _Date.push(obj.splk[i].Date);
+                  _High_Price.push(obj.splk[i].High_Price);
+                }
+                var chart = echarts.init(document.getElementById('SPLK_Real_Time_chart'));
+                var option = {
+                  title: {
+                    text: 'SPLK_Real_Time'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['CLose_Price','H_Volume']
+                  },
+                  dataZoom : {
+                    show : true,
+                    realtime : true,
+                    start : 20,
+                    end : 80
+                  },
+                  xAxis: {
+                    data: _Date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'CLose_Price',
+                      type: 'line',
+                      data: _CLose_Price
+                    },
+                    {
+                      name: 'H_Volume',
+                      type: 'bar',
+                      data: _H_Volume
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="SPLK3">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Prediction</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>SVM</td>
+                          <td id="SPLK_SVM"></td>
+                        </tr>
+                        <tr>
+                          <td>ANN</td>
+                          <td id="SPLK_ANN"></td>
+                        </tr>
+                        <tr>
+                          <td>LSTM</td>
+                          <td id="SPLK_LSTM"></td>
+                        </tr>
+                        <tr>
+                          <td>BYS</td>
+                          <td id="SPLK_BYS"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <!-- SPLK prediction chart-->
+              <script type="text/javascript">
+                var SVMtxt =JSON.parse(SVM_Prediction_data);
+                var ANNtxt =JSON.parse(ANN_Prediction_data);
+                var LSTMtxt =JSON.parse(LSTM_Prediction_data);
+                var BYStxt =JSON.parse(BYS_Prediction_data);
+                document.getElementById("SPLK_BYS").innerHTML=BYStxt.data[9].SPLKNextDayValue;
+                document.getElementById("SPLK_SVM").innerHTML=SVMtxt.data[9].SPLKNextDayValue;
+                document.getElementById("SPLK_ANN").innerHTML=ANNtxt.data[9].SPLKNextDayValue;
+                document.getElementById("SPLK_LSTM").innerHTML=LSTMtxt.data[9].SPLKNextDayValue;
+              </script>
+              <div class="tab-pane" id="SPLK_ROC_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_SPLK_ROC -->
+              <script type="text/javascript" src="./json/SPLKROCindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(SPLK_ROC_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].ROC);
+                }
+                var chart = echarts.init(document.getElementById('SPLK_ROC_chart'));
+                var option = {
+                  title: {
+                    text: 'SPLK_ROC'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['ROC']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'ROC',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="SPLK_OBV_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_SPLK_OBV -->
+              <script type="text/javascript" src="./json/SPLKOBVindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(SPLK_OBV_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].OBV);
+                }
+                var chart = echarts.init(document.getElementById('SPLK_OBV_chart'));
+                var option = {
+                  title: {
+                    text: 'SPLK_OBV'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['OBV']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'OBV',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="SPLK_MACD_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_SPLK_MACD -->
+              <script type="text/javascript" src="./json/SPLKMACDindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(SPLK_MACD_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].MACD);
+                }
+                var chart = echarts.init(document.getElementById('SPLK_MACD_chart'));
+                var option = {
+                  title: {
+                    text: 'SPLK_MACD'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['MACD']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'MACD',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="TSLA">
+        </br>
+          <div class="tabbable"> <!-- Only required for left/right tabs -->
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#TSLA1" data-toggle="tab">Historical Data</a></li>
+              <li><a href="#TSLA2" data-toggle="tab">Real_time Data</a></li>
+              <li><a href="#TSLA3" data-toggle="tab">Prediction</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Indicators <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#TSLA_ROC_chart" data-toggle="tab">ROC</a></li>
+                  <li><a href="#TSLA_OBV_chart" data-toggle="tab">OBV</a></li>
+                  <li><a href="#TSLA_MACD_chart" data-toggle="tab">MACD</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="TSLA1">
+                <div id="TSLA_Historial_chart" style="width: 850px; height: 550px;"></div>
+              </div>
+              <!-- TSLA_Historial_chart -->
+              <script type="text/javascript" src="./json/tslahistory.json"></script>
+              <script type="text/javascript">
+                var obj=JSON.parse(tsla_history_chart_data);
+                var _Open_Price = [], _CLose_Price = [], _H_Volume = [], _Low_Price = [], _Date = [], _High_Price = [];
+                for(var i=0;i<obj.tsla.length;i++){
+                  _Open_Price.push(obj.tsla[i].Open_Price);
+                  _CLose_Price.push(obj.tsla[i].CLose_Price);
+                  _H_Volume.push(obj.tsla[i].H_Volume);
+                  _Low_Price.push(obj.tsla[i].Low_Price);
+                  _Date.push(obj.tsla[i].Date);
+                  _High_Price.push(obj.tsla[i].High_Price);
+                }
+                var chart = echarts.init(document.getElementById('TSLA_Historial_chart'));
+                var option = {
+                  title: {
+                    text: 'TSLA_Historial'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['CLose_Price','H_Volume']
+                  },
+                  dataZoom : {
+                    show : true,
+                    realtime : true,
+                    start : 20,
+                    end : 80
+                  },
+                  xAxis: {
+                    data: _Date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'CLose_Price',
+                      type: 'line',
+                      data: _CLose_Price
+                    },
+                    {
+                      name: 'H_Volume',
+                      type: 'bar',
+                      data: _H_Volume
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="TSLA2">
+                <div id="TSLA_Real_Time_chart" style="width: 850px; height: 550px;"></div>
+              </div>
+              <!-- TSLA_Real_Time_chart -->
+              <script type="text/javascript" src="./json/tslarealtime.json"></script>
+              <script type="text/javascript">
+                var obj=JSON.parse(tsla_realtime_chart_data);
+                var _Open_Price = [], _CLose_Price = [], _H_Volume = [], _Low_Price = [], _Date = [], _High_Price = [];
+                for(var i=0;i<obj.tsla.length;i++){
+                  _Open_Price.push(obj.tsla[i].Open_Price);
+                  _CLose_Price.push(obj.tsla[i].CLose_Price);
+                  _H_Volume.push(obj.tsla[i].H_Volume);
+                  _Low_Price.push(obj.tsla[i].Low_Price);
+                  _Date.push(obj.tsla[i].Date);
+                  _High_Price.push(obj.tsla[i].High_Price);
+                }
+                var chart = echarts.init(document.getElementById('TSLA_Real_Time_chart'));
+                var option = {
+                  title: {
+                    text: 'TSLA_Real_Time'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['CLose_Price','H_Volume']
+                  },
+                  dataZoom : {
+                    show : true,
+                    realtime : true,
+                    start : 20,
+                    end : 80
+                  },
+                  xAxis: {
+                    data: _Date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'CLose_Price',
+                      type: 'line',
+                      data: _CLose_Price
+                    },
+                    {
+                      name: 'H_Volume',
+                      type: 'bar',
+                      data: _H_Volume
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="TSLA3">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Prediction</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>SVM</td>
+                          <td id="TSLA_SVM"></td>
+                        </tr>
+                        <tr>
+                          <td>ANN</td>
+                          <td id="TSLA_ANN"></td>
+                        </tr>
+                        <tr>
+                          <td>LSTM</td>
+                          <td id="TSLA_LSTM"></td>
+                        </tr>
+                        <tr>
+                          <td>BYS</td>
+                          <td id="TSLA_BYS"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <!-- TSLA prediction chart-->
+              <script type="text/javascript">
+                var SVMtxt =JSON.parse(SVM_Prediction_data);
+                var ANNtxt =JSON.parse(ANN_Prediction_data);
+                var LSTMtxt =JSON.parse(LSTM_Prediction_data);
+                var BYStxt =JSON.parse(BYS_Prediction_data);
+                document.getElementById("TSLA_BYS").innerHTML=BYStxt.data[7].TSLANextDayValue;
+                document.getElementById("TSLA_SVM").innerHTML=SVMtxt.data[7].TSLANextDayValue;
+                document.getElementById("TSLA_ANN").innerHTML=ANNtxt.data[7].TSLANextDayValue;
+                document.getElementById("TSLA_LSTM").innerHTML=LSTMtxt.data[7].TSLANextDayValue;
+              </script>
+              <div class="tab-pane" id="TSLA_ROC_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_TSLA_ROC -->
+              <script type="text/javascript" src="./json/TSLAROCindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(TSLA_ROC_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].ROC);
+                }
+                var chart = echarts.init(document.getElementById('TSLA_ROC_chart'));
+                var option = {
+                  title: {
+                    text: 'TSLA_ROC'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['ROC']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'ROC',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="TSLA_OBV_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_TSLA_OBV -->
+              <script type="text/javascript" src="./json/TSLAOBVindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(TSLA_OBV_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].OBV);
+                }
+                var chart = echarts.init(document.getElementById('TSLA_OBV_chart'));
+                var option = {
+                  title: {
+                    text: 'TSLA_OBV'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['OBV']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'OBV',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="TSLA_MACD_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_TSLA_MACD -->
+              <script type="text/javascript" src="./json/TSLAMACDindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(TSLA_MACD_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].MACD);
+                }
+                var chart = echarts.init(document.getElementById('TSLA_MACD_chart'));
+                var option = {
+                  title: {
+                    text: 'TSLA_MACD'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['MACD']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'MACD',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="TWTR">
+        </br>
+          <div class="tabbable"> <!-- Only required for left/right tabs -->
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#TWTR1" data-toggle="tab">Historical Data</a></li>
+              <li><a href="#TWTR2" data-toggle="tab">Real_time Data</a></li>
+              <li><a href="#TWTR3" data-toggle="tab">Prediction</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Indicators <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#TWTR_ROC_chart" data-toggle="tab">ROC</a></li>
+                  <li><a href="#TWTR_OBV_chart" data-toggle="tab">OBV</a></li>
+                  <li><a href="#TWTR_MACD_chart" data-toggle="tab">MACD</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="TWTR1">
+                <div id="TWTR_Historial_chart" style="width: 850px; height: 550px;"></div>
+              </div>
+              <!-- TWTR_Historial_chart -->
+              <script type="text/javascript" src="./json/twtrhistory.json"></script>
+              <script type="text/javascript">
+                var obj=JSON.parse(twtr_history_chart_data);
+                var _Open_Price = [], _CLose_Price = [], _H_Volume = [], _Low_Price = [], _Date = [], _High_Price = [];
+                for(var i=0;i<obj.twtr.length;i++){
+                  _Open_Price.push(obj.twtr[i].Open_Price);
+                  _CLose_Price.push(obj.twtr[i].CLose_Price);
+                  _H_Volume.push(obj.twtr[i].H_Volume);
+                  _Low_Price.push(obj.twtr[i].Low_Price);
+                  _Date.push(obj.twtr[i].Date);
+                  _High_Price.push(obj.twtr[i].High_Price);
+                }
+                var chart = echarts.init(document.getElementById('TWTR_Historial_chart'));
+                var option = {
+                  title: {
+                    text: 'TWTR_Historial'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['CLose_Price','H_Volume']
+                  },
+                  dataZoom : {
+                    show : true,
+                    realtime : true,
+                    start : 20,
+                    end : 80
+                  },
+                  xAxis: {
+                    data: _Date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'CLose_Price',
+                      type: 'line',
+                      data: _CLose_Price
+                    },
+                    {
+                      name: 'H_Volume',
+                      type: 'bar',
+                      data: _H_Volume
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="TWTR2">
+                <div id="TWTR_Real_Time_chart" style="width: 850px; height: 550px;"></div>
+              </div>
+              <!-- TWTR_Real_Time_chart -->
+              <script type="text/javascript" src="./json/twtrrealtime.json"></script>
+              <script type="text/javascript">
+                var obj=JSON.parse(twtr_realtime_chart_data);
+                var _Open_Price = [], _CLose_Price = [], _H_Volume = [], _Low_Price = [], _Date = [], _High_Price = [];
+                for(var i=0;i<obj.twtr.length;i++){
+                  _Open_Price.push(obj.twtr[i].Open_Price);
+                  _CLose_Price.push(obj.twtr[i].CLose_Price);
+                  _H_Volume.push(obj.twtr[i].H_Volume);
+                  _Low_Price.push(obj.twtr[i].Low_Price);
+                  _Date.push(obj.twtr[i].Date);
+                  _High_Price.push(obj.twtr[i].High_Price);
+                }
+                var chart = echarts.init(document.getElementById('TWTR_Real_Time_chart'));
+                var option = {
+                  title: {
+                    text: 'TWTR_Real_Time'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['CLose_Price','H_Volume']
+                  },
+                  dataZoom : {
+                    show : true,
+                    realtime : true,
+                    start : 20,
+                    end : 80
+                  },
+                  xAxis: {
+                    data: _Date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'CLose_Price',
+                      type: 'line',
+                      data: _CLose_Price
+                    },
+                    {
+                      name: 'H_Volume',
+                      type: 'bar',
+                      data: _H_Volume
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="TWTR3">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Prediction</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>SVM</td>
+                          <td id="TWTR_SVM"></td>
+                        </tr>
+                        <tr>
+                          <td>ANN</td>
+                          <td id="TWTR_ANN"></td>
+                        </tr>
+                        <tr>
+                          <td>LSTM</td>
+                          <td id="TWTR_LSTM"></td>
+                        </tr>
+                        <tr>
+                          <td>BYS</td>
+                          <td id="TWTR_BYS"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <!-- TWTR prediction chart-->
+              <script type="text/javascript">
+                var SVMtxt =JSON.parse(SVM_Prediction_data);
+                var ANNtxt =JSON.parse(ANN_Prediction_data);
+                var LSTMtxt =JSON.parse(LSTM_Prediction_data);
+                var BYStxt =JSON.parse(BYS_Prediction_data);
+                document.getElementById("TWTR_BYS").innerHTML=BYStxt.data[5].TWTRNextDayValue;
+                document.getElementById("TWTR_SVM").innerHTML=SVMtxt.data[5].TWTRNextDayValue;
+                document.getElementById("TWTR_ANN").innerHTML=ANNtxt.data[5].TWTRNextDayValue;
+                document.getElementById("TWTR_LSTM").innerHTML=LSTMtxt.data[5].TWTRNextDayValue;
+              </script>
+              <div class="tab-pane" id="TWTR_ROC_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_TWTR_ROC -->
+              <script type="text/javascript" src="./json/TWTRROCindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(TWTR_ROC_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].ROC);
+                }
+                var chart = echarts.init(document.getElementById('TWTR_ROC_chart'));
+                var option = {
+                  title: {
+                    text: 'TWTR_ROC'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['ROC']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'ROC',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="TWTR_OBV_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_TWTR_OBV -->
+              <script type="text/javascript" src="./json/TWTROBVindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(TWTR_OBV_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].OBV);
+                }
+                var chart = echarts.init(document.getElementById('TWTR_OBV_chart'));
+                var option = {
+                  title: {
+                    text: 'TWTR_OBV'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['OBV']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'OBV',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+              <div class="tab-pane" id="TWTR_MACD_chart" style="width: 850px; height: 550px;"></div>
+              <!-- Chart_TWTR_MACD -->
+              <script type="text/javascript" src="./json/TWTRMACDindicator.json"></script>
+              <script type="text/javascript">
+                var obj =JSON.parse(TWTR_MACD_data);
+                var _date = [], _data = [];
+                for(var i=0;i<obj.data.length;i++){
+                  _date.push(obj.data[i].date);
+                  _data.push(obj.data[i].MACD);
+                }
+                var chart = echarts.init(document.getElementById('TWTR_MACD_chart'));
+                var option = {
+                  title: {
+                    text: 'TWTR_MACD'
+                  },
+                  tooltip: {
+                     trigger: 'axis'
+                  },
+                  legend: {
+                    data: ['MACD']
+                  },
+                  xAxis: {
+                    data: _date
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: 'MACD',
+                      type: 'line',
+                      data: _data
+                    },
+                  ]
+                };
+                chart.setOption(option);
+              </script>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="Last">
+        </br>
+          <section id="tables">
+            <div class="bs-docs-example">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Company ID</th>
+                    <th>Latest Stock Price in the last ten days</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>AABA</td>
+                    <td id="Latest_AABA"></td>
+                  </tr>
+                  <tr>
+                    <td>AMZN</td>
+                    <td id="Latest_AMZN"></td>
+                  </tr>
+                  <tr>
+                    <td>BABA</td>
+                    <td id="Latest_BABA"></td>
+                  </tr>
+                  <tr>
+                    <td>FB</td>
+                    <td id="Latest_FB"></td>
+                  </tr>
+                  <tr>
+                    <td>GOOG</td>
+                    <td id="Latest_GOOG"></td>
+                  </tr>
+                  <tr>
+                    <td>NFLX</td>
+                    <td id="Latest_NFLX"></td>
+                  </tr>
+                  <tr>
+                    <td>OPK</td>
+                    <td id="Latest_OPK"></td>
+                  </tr>
+                  <tr>
+                    <td>SPLK</td>
+                    <td id="Latest_SPLK"></td>
+                  </tr>
+                  <tr>
+                    <td>TSLA</td>
+                    <td id="Latest_TSLA"></td>
+                  </tr>
+                  <tr>
+                    <td>TWTR</td>
+                    <td id="Latest_TWTR"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+        <!-- query-1 -->
+        <script type="text/javascript" src="./json/query1.json"></script>
+        <script type="text/javascript">
+          var obj =JSON.parse(query1_data);
+          document.getElementById("Latest_AABA").innerHTML=obj.latest_Price[0].price
+          document.getElementById("Latest_AMZN").innerHTML=obj.latest_Price[1].price
+          document.getElementById("Latest_BABA").innerHTML=obj.latest_Price[2].price
+          document.getElementById("Latest_FB").innerHTML=obj.latest_Price[3].price
+          document.getElementById("Latest_GOOG").innerHTML=obj.latest_Price[4].price
+          document.getElementById("Latest_NFLX").innerHTML=obj.latest_Price[5].price
+          document.getElementById("Latest_OPK").innerHTML=obj.latest_Price[6].price
+          document.getElementById("Latest_SPLK").innerHTML=obj.latest_Price[7].price
+          document.getElementById("Latest_TSLA").innerHTML=obj.latest_Price[8].price
+          document.getElementById("Latest_TWTR").innerHTML=obj.latest_Price[9].price
+        </script>
+        <div class="tab-pane" id="High">
+        </br>
+          <section id="tables">
+            <div class="bs-docs-example">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Company ID</th>
+                    <th>Highest Stock Price in the last ten days</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>AABA</td>
+                    <td id="Highest_AABA"></td>
+                  </tr>
+                  <tr>
+                    <td>AMZN</td>
+                    <td id="Highest_AMZN"></td>
+                  </tr>
+                  <tr>
+                    <td>BABA</td>
+                    <td id="Highest_BABA"></td>
+                  </tr>
+                  <tr>
+                    <td>FB</td>
+                    <td id="Highest_FB"></td>
+                  </tr>
+                  <tr>
+                    <td>GOOG</td>
+                    <td id="Highest_GOOG"></td>
+                  </tr>
+                  <tr>
+                    <td>NFLX</td>
+                    <td id="Highest_NFLX"></td>
+                  </tr>
+                  <tr>
+                    <td>OPK</td>
+                    <td id="Highest_OPK"></td>
+                  </tr>
+                  <tr>
+                    <td>SPLK</td>
+                    <td id="Highest_SPLK"></td>
+                  </tr>
+                  <tr>
+                    <td>TSLA</td>
+                    <td id="Highest_TSLA"></td>
+                  </tr>
+                  <tr>
+                    <td>TWTR</td>
+                    <td id="Highest_TWTR"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+        <!-- query-2 -->
+        <script type="text/javascript" src="./json/query2.json"></script>
+        <script type="text/javascript">
+          var obj =JSON.parse(query2_data);
+          document.getElementById("Highest_AABA").innerHTML=obj.HighestPrice[1].price
+          document.getElementById("Highest_AMZN").innerHTML=obj.HighestPrice[2].price
+          document.getElementById("Highest_BABA").innerHTML=obj.HighestPrice[8].price
+          document.getElementById("Highest_FB").innerHTML=obj.HighestPrice[4].price
+          document.getElementById("Highest_GOOG").innerHTML=obj.HighestPrice[0].price
+          document.getElementById("Highest_NFLX").innerHTML=obj.HighestPrice[6].price
+          document.getElementById("Highest_OPK").innerHTML=obj.HighestPrice[3].price
+          document.getElementById("Highest_SPLK").innerHTML=obj.HighestPrice[9].price
+          document.getElementById("Highest_TSLA").innerHTML=obj.HighestPrice[7].price
+          document.getElementById("Highest_TWTR").innerHTML=obj.HighestPrice[5].price
+        </script>
+        <div class="tab-pane" id="Low">
+        </br>
+          <section id="tables">
+            <div class="bs-docs-example">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Company ID</th>
+                    <th>Lowest Stock Price in the last one year</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>AABA</td>
+                    <td id="Lowest_AABA"></td>
+                  </tr>
+                  <tr>
+                    <td>AMZN</td>
+                    <td id="Lowest_AMZN"></td>
+                  </tr>
+                  <tr>
+                    <td>BABA</td>
+                    <td id="Lowest_BABA"></td>
+                  </tr>
+                  <tr>
+                    <td>FB</td>
+                    <td id="Lowest_FB"></td>
+                  </tr>
+                  <tr>
+                    <td>GOOG</td>
+                    <td id="Lowest_GOOG"></td>
+                  </tr>
+                  <tr>
+                    <td>NFLX</td>
+                    <td id="Lowest_NFLX"></td>
+                  </tr>
+                  <tr>
+                    <td>OPK</td>
+                    <td id="Lowest_OPK"></td>
+                  </tr>
+                  <tr>
+                    <td>SPLK</td>
+                    <td id="Lowest_SPLK"></td>
+                  </tr>
+                  <tr>
+                    <td>TSLA</td>
+                    <td id="Lowest_TSLA"></td>
+                  </tr>
+                  <tr>
+                    <td>TWTR</td>
+                    <td id="Lowest_TWTR"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+        <!-- query-3 -->
+        <script type="text/javascript" src="./json/query3.json"></script>
+        <script type="text/javascript">
+          var obj =JSON.parse(query3_data);
+          document.getElementById("Lowest_AABA").innerHTML=obj.LowestPrice[1].price
+          document.getElementById("Lowest_AMZN").innerHTML=obj.LowestPrice[2].price
+          document.getElementById("Lowest_BABA").innerHTML=obj.LowestPrice[7].price
+          document.getElementById("Lowest_FB").innerHTML=obj.LowestPrice[4].price
+          document.getElementById("Lowest_GOOG").innerHTML=obj.LowestPrice[0].price
+          document.getElementById("Lowest_NFLX").innerHTML=obj.LowestPrice[6].price
+          document.getElementById("Lowest_OPK").innerHTML=obj.LowestPrice[3].price
+          document.getElementById("Lowest_SPLK").innerHTML=obj.LowestPrice[8].price
+          document.getElementById("Lowest_TSLA").innerHTML=obj.LowestPrice[9].price
+          document.getElementById("Lowest_TWTR").innerHTML=obj.LowestPrice[5].price
+        </script>
+        <div class="tab-pane" id="Ave">
+        </br>
+          <section id="tables">
+            <div class="bs-docs-example">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Company ID</th>
+                    <th>Average Stock Price in the last one year</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>AABA</td>
+                    <td id="Average_AABA"></td>
+                  </tr>
+                  <tr>
+                    <td>AMZN</td>
+                    <td id="Average_AMZN"></td>
+                  </tr>
+                  <tr>
+                    <td>BABA</td>
+                    <td id="Average_BABA"></td>
+                  </tr>
+                  <tr>
+                    <td>FB</td>
+                    <td id="Average_FB"></td>
+                  </tr>
+                  <tr>
+                    <td>GOOG</td>
+                    <td id="Average_GOOG"></td>
+                  </tr>
+                  <tr>
+                    <td>NFLX</td>
+                    <td id="Average_NFLX"></td>
+                  </tr>
+                  <tr>
+                    <td>OPK</td>
+                    <td id="Average_OPK"></td>
+                  </tr>
+                  <tr>
+                    <td>SPLK</td>
+                    <td id="Average_SPLK"></td>
+                  </tr>
+                  <tr>
+                    <td>TSLA</td>
+                    <td id="Average_TSLA"></td>
+                  </tr>
+                  <tr>
+                    <td>TWTR</td>
+                    <td id="Average_TWTR"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+        <!-- query-4 -->
+        <script type="text/javascript" src="./json/query4.json"></script>
+        <script type="text/javascript">
+          var obj =JSON.parse(query4_data);
+          document.getElementById("Average_AABA").innerHTML=obj.AveragePrice[1].price
+          document.getElementById("Average_AMZN").innerHTML=obj.AveragePrice[2].price
+          document.getElementById("Average_BABA").innerHTML=obj.AveragePrice[7].price
+          document.getElementById("Average_FB").innerHTML=obj.AveragePrice[4].price
+          document.getElementById("Average_GOOG").innerHTML=obj.AveragePrice[0].price
+          document.getElementById("Average_NFLX").innerHTML=obj.AveragePrice[6].price
+          document.getElementById("Average_OPK").innerHTML=obj.AveragePrice[3].price
+          document.getElementById("Average_SPLK").innerHTML=obj.AveragePrice[8].price
+          document.getElementById("Average_TSLA").innerHTML=obj.AveragePrice[9].price
+          document.getElementById("Average_TWTR").innerHTML=obj.AveragePrice[5].price
+        </script>
+        <div class="tab-pane" id="Less">
+        </br>
+          <h4>Companies who have the average price lesser than the lowest of the selected company in the latest one year.</h4></br></br>
+          <div class="accordion" id="accordion">
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                    AABA
+                  </a>
+                </div>
+                <div id="collapseOne" class="accordion-body collapse in">
+                  <div class="accordion-inner" id="Less_AABA"></div>
+                </div>
+              </div>
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                    AMZN
+                  </a>
+                </div>
+                <div id="collapseTwo" class="accordion-body collapse">
+                  <div class="accordion-inner" id="Less_AMZN"></div>
+                </div>
+              </div>
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                    BABA
+                  </a>
+                </div>
+                <div id="collapseThree" class="accordion-body collapse">
+                  <div class="accordion-inner" id="Less_BABA"></div>
+                </div>
+              </div>
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                    FB
+                  </a>
+                </div>
+                <div id="collapseFour" class="accordion-body collapse">
+                  <div class="accordion-inner" id="Less_FB"></div>
+                </div>
+              </div>
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+                    GOOG
+                  </a>
+                </div>
+                <div id="collapseFive" class="accordion-body collapse">
+                  <div class="accordion-inner" id="Less_GOOG"></div>
+                </div>
+              </div>
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+                    NFLX
+                  </a>
+                </div>
+                <div id="collapseSix" class="accordion-body collapse">
+                  <div class="accordion-inner" id="Less_NFLX"></div>
+                </div>
+              </div>
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
+                    OPK
+                  </a>
+                </div>
+                <div id="collapseSeven" class="accordion-body collapse">
+                  <div class="accordion-inner" id="Less_OPK"></div>
+                </div>
+              </div>
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">
+                    SPLK
+                  </a>
+                </div>
+                <div id="collapseEight" class="accordion-body collapse">
+                  <div class="accordion-inner" id="Less_SPLK"></div>
+                </div>
+              </div>
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseNine">
+                    TSLA
+                  </a>
+                </div>
+                <div id="collapseNine" class="accordion-body collapse">
+                  <div class="accordion-inner" id="Less_TSLA"></div>
+                </div>
+              </div>
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTen">
+                    TWTR
+                  </a>
+                </div>
+                <div id="collapseTen" class="accordion-body collapse">
+                  <div class="accordion-inner" id="Less_TWTR"></div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <!-- query-5 -->
+        <script type="text/javascript" src="./json/query5.json"></script>
+        <script type="text/javascript">
+          var obj =JSON.parse(query5_data);
+          var _AABA=[],_AMZN=[],_BABA=[],_FB=[],_GOOG=[],_NFLX=[],_OPK=[],_SPLK=[],_TSLA=[],_TWTR=[];
+          for(var i = 1;i<=obj.data.aaba.length;i++){
+            _AABA.push(" "+i+". "+obj.data.aaba[i-1].company);
+          }
+          for(var i = 1;i<=obj.data.amzn.length;i++){
+            _AMZN.push(" "+i+". "+obj.data.amzn[i-1].company);
+          }
+          for(var i = 1;i<=obj.data.baba.length;i++){
+            _BABA.push(" "+i+". "+obj.data.baba[i-1].company);
+          }
+          for(var i = 1;i<obj.data.fb.length;i++){
+            _FB.push(" "+i+". "+obj.data.fb[i-1].company);
+          }
+          for(var i = 1;i<=obj.data.goog.length;i++){
+            _GOOG.push(" "+i+". "+obj.data.goog[i-1].company);
+          }
+          for(var i = 1;i<=obj.data.nflx.length;i++){
+            _NFLX.push(" "+i+". "+obj.data.nflx[i-1].company);
+          }
+          for(var i = 1;i<=obj.data.opk.length;i++){
+            _OPK.push(" "+i+". "+obj.data.opk[i-1].company);
+          }
+          for(var i = 1;i<=obj.data.splk.length;i++){
+            _SPLK.push(" "+i+". "+obj.data.splk[i-1].company);
+          }
+          for(var i = 1;i<=obj.data.tsla.length;i++){
+            _TSLA.push(" "+i+". "+obj.data.tsla[i-1].company);
+          }
+          for(var i = 1;i<=obj.data.twtr.length;i++){
+            _TWTR.push(" "+i+". "+obj.data.twtr[i-1].company);
+          }
+          document.getElementById("Less_AABA").innerHTML=_AABA;
+          document.getElementById("Less_AMZN").innerHTML=_AMZN
+          document.getElementById("Less_BABA").innerHTML=_BABA
+          document.getElementById("Less_FB").innerHTML=_FB
+          document.getElementById("Less_GOOG").innerHTML=_GOOG
+          document.getElementById("Less_NFLX").innerHTML=_NFLX
+          document.getElementById("Less_OPK").innerHTML=_OPK
+          document.getElementById("Less_SPLK").innerHTML=_SPLK
+          document.getElementById("Less_TSLA").innerHTML=_TSLA
+          document.getElementById("Less_TWTR").innerHTML=_TWTR
+        </script>
+      </div>
+    </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
+  </body>
+</html>

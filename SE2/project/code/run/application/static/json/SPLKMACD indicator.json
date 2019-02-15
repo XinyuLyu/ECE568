@@ -1,0 +1,698 @@
+[
+  {
+    "date": "4/17/18 12:00",
+    "MACD": 0.453,
+    "MACD_Signal": -0.0455,
+    "MACD_Hist": 0.4985
+  },
+  {
+    "date": "4/17/18 12:30",
+    "MACD": 0.5502,
+    "MACD_Signal": 0.0736,
+    "MACD_Hist": 0.4766
+  },
+  {
+    "date": "4/17/18 13:00",
+    "MACD": 0.5994,
+    "MACD_Signal": 0.1788,
+    "MACD_Hist": 0.4206
+  },
+  {
+    "date": "4/17/18 13:30",
+    "MACD": 0.6574,
+    "MACD_Signal": 0.2745,
+    "MACD_Hist": 0.3829
+  },
+  {
+    "date": "4/17/18 14:00",
+    "MACD": 0.7288,
+    "MACD_Signal": 0.3654,
+    "MACD_Hist": 0.3635
+  },
+  {
+    "date": "4/17/18 14:30",
+    "MACD": 0.7534,
+    "MACD_Signal": 0.443,
+    "MACD_Hist": 0.3104
+  },
+  {
+    "date": "4/17/18 15:00",
+    "MACD": 0.7824,
+    "MACD_Signal": 0.5109,
+    "MACD_Hist": 0.2716
+  },
+  {
+    "date": "4/17/18 15:30",
+    "MACD": 0.821,
+    "MACD_Signal": 0.5729,
+    "MACD_Hist": 0.2481
+  },
+  {
+    "date": "4/17/18 16:00",
+    "MACD": 0.8306,
+    "MACD_Signal": 0.6244,
+    "MACD_Hist": 0.2062
+  },
+  {
+    "date": "4/18/18 9:30",
+    "MACD": 0.7944,
+    "MACD_Signal": 0.6584,
+    "MACD_Hist": 0.136
+  },
+  {
+    "date": "4/18/18 10:00",
+    "MACD": 0.6988,
+    "MACD_Signal": 0.6665,
+    "MACD_Hist": 0.0323
+  },
+  {
+    "date": "4/18/18 10:30",
+    "MACD": 0.576,
+    "MACD_Signal": 0.6484,
+    "MACD_Hist": -0.0724
+  },
+  {
+    "date": "4/18/18 11:00",
+    "MACD": 0.5434,
+    "MACD_Signal": 0.6274,
+    "MACD_Hist": -0.084
+  },
+  {
+    "date": "4/18/18 11:30",
+    "MACD": 0.5412,
+    "MACD_Signal": 0.6102,
+    "MACD_Hist": -0.0689
+  },
+  {
+    "date": "4/18/18 12:00",
+    "MACD": 0.503,
+    "MACD_Signal": 0.5887,
+    "MACD_Hist": -0.0857
+  },
+  {
+    "date": "4/18/18 12:30",
+    "MACD": 0.524,
+    "MACD_Signal": 0.5758,
+    "MACD_Hist": -0.0518
+  },
+  {
+    "date": "4/18/18 13:00",
+    "MACD": 0.5273,
+    "MACD_Signal": 0.5661,
+    "MACD_Hist": -0.0388
+  },
+  {
+    "date": "4/18/18 13:30",
+    "MACD": 0.5214,
+    "MACD_Signal": 0.5571,
+    "MACD_Hist": -0.0357
+  },
+  {
+    "date": "4/18/18 14:00",
+    "MACD": 0.4926,
+    "MACD_Signal": 0.5442,
+    "MACD_Hist": -0.0517
+  },
+  {
+    "date": "4/18/18 14:30",
+    "MACD": 0.4962,
+    "MACD_Signal": 0.5346,
+    "MACD_Hist": -0.0384
+  },
+  {
+    "date": "4/18/18 15:00",
+    "MACD": 0.4783,
+    "MACD_Signal": 0.5234,
+    "MACD_Hist": -0.0451
+  },
+  {
+    "date": "4/18/18 15:30",
+    "MACD": 0.4341,
+    "MACD_Signal": 0.5055,
+    "MACD_Hist": -0.0714
+  },
+  {
+    "date": "4/18/18 16:00",
+    "MACD": 0.3746,
+    "MACD_Signal": 0.4793,
+    "MACD_Hist": -0.1048
+  },
+  {
+    "date": "4/19/18 9:30",
+    "MACD": 0.2718,
+    "MACD_Signal": 0.4378,
+    "MACD_Hist": -0.166
+  },
+  {
+    "date": "4/19/18 10:00",
+    "MACD": 0.268,
+    "MACD_Signal": 0.4038,
+    "MACD_Hist": -0.1359
+  },
+  {
+    "date": "4/19/18 10:30",
+    "MACD": 0.1981,
+    "MACD_Signal": 0.3627,
+    "MACD_Hist": -0.1646
+  },
+  {
+    "date": "4/19/18 11:00",
+    "MACD": 0.1291,
+    "MACD_Signal": 0.316,
+    "MACD_Hist": -0.1869
+  },
+  {
+    "date": "4/19/18 11:30",
+    "MACD": 0.0377,
+    "MACD_Signal": 0.2603,
+    "MACD_Hist": -0.2226
+  },
+  {
+    "date": "4/19/18 12:00",
+    "MACD": -0.0056,
+    "MACD_Signal": 0.2071,
+    "MACD_Hist": -0.2127
+  },
+  {
+    "date": "4/19/18 12:30",
+    "MACD": -0.0419,
+    "MACD_Signal": 0.1573,
+    "MACD_Hist": -0.1992
+  },
+  {
+    "date": "4/19/18 13:00",
+    "MACD": -0.0547,
+    "MACD_Signal": 0.1149,
+    "MACD_Hist": -0.1696
+  },
+  {
+    "date": "4/19/18 13:30",
+    "MACD": -0.0665,
+    "MACD_Signal": 0.0787,
+    "MACD_Hist": -0.1451
+  },
+  {
+    "date": "4/19/18 14:00",
+    "MACD": -0.0717,
+    "MACD_Signal": 0.0486,
+    "MACD_Hist": -0.1203
+  },
+  {
+    "date": "4/19/18 14:30",
+    "MACD": -0.0846,
+    "MACD_Signal": 0.0219,
+    "MACD_Hist": -0.1066
+  },
+  {
+    "date": "4/19/18 15:00",
+    "MACD": -0.0858,
+    "MACD_Signal": 0.0004,
+    "MACD_Hist": -0.0862
+  },
+  {
+    "date": "4/19/18 15:30",
+    "MACD": -0.1256,
+    "MACD_Signal": -0.0248,
+    "MACD_Hist": -0.1008
+  },
+  {
+    "date": "4/19/18 16:00",
+    "MACD": -0.1434,
+    "MACD_Signal": -0.0485,
+    "MACD_Hist": -0.0949
+  },
+  {
+    "date": "4/20/18 9:30",
+    "MACD": -0.1669,
+    "MACD_Signal": -0.0722,
+    "MACD_Hist": -0.0947
+  },
+  {
+    "date": "4/20/18 10:00",
+    "MACD": -0.1842,
+    "MACD_Signal": -0.0946,
+    "MACD_Hist": -0.0896
+  },
+  {
+    "date": "4/20/18 10:30",
+    "MACD": -0.174,
+    "MACD_Signal": -0.1105,
+    "MACD_Hist": -0.0635
+  },
+  {
+    "date": "4/20/18 11:00",
+    "MACD": -0.1833,
+    "MACD_Signal": -0.1251,
+    "MACD_Hist": -0.0583
+  },
+  {
+    "date": "4/20/18 11:30",
+    "MACD": -0.2975,
+    "MACD_Signal": -0.1595,
+    "MACD_Hist": -0.1379
+  },
+  {
+    "date": "4/20/18 12:00",
+    "MACD": -0.3272,
+    "MACD_Signal": -0.1931,
+    "MACD_Hist": -0.1341
+  },
+  {
+    "date": "4/20/18 12:30",
+    "MACD": -0.3467,
+    "MACD_Signal": -0.2238,
+    "MACD_Hist": -0.1229
+  },
+  {
+    "date": "4/20/18 13:00",
+    "MACD": -0.3988,
+    "MACD_Signal": -0.2588,
+    "MACD_Hist": -0.14
+  },
+  {
+    "date": "4/20/18 13:30",
+    "MACD": -0.4406,
+    "MACD_Signal": -0.2952,
+    "MACD_Hist": -0.1454
+  },
+  {
+    "date": "4/20/18 14:00",
+    "MACD": -0.4564,
+    "MACD_Signal": -0.3274,
+    "MACD_Hist": -0.129
+  },
+  {
+    "date": "4/20/18 14:30",
+    "MACD": -0.4747,
+    "MACD_Signal": -0.3569,
+    "MACD_Hist": -0.1179
+  },
+  {
+    "date": "4/20/18 15:00",
+    "MACD": -0.4785,
+    "MACD_Signal": -0.3812,
+    "MACD_Hist": -0.0973
+  },
+  {
+    "date": "4/20/18 15:30",
+    "MACD": -0.5107,
+    "MACD_Signal": -0.4071,
+    "MACD_Hist": -0.1036
+  },
+  {
+    "date": "4/20/18 16:00",
+    "MACD": -0.5062,
+    "MACD_Signal": -0.4269,
+    "MACD_Hist": -0.0793
+  },
+  {
+    "date": "4/23/18 9:30",
+    "MACD": -0.4538,
+    "MACD_Signal": -0.4323,
+    "MACD_Hist": -0.0215
+  },
+  {
+    "date": "4/23/18 10:00",
+    "MACD": -0.4004,
+    "MACD_Signal": -0.4259,
+    "MACD_Hist": 0.0255
+  },
+  {
+    "date": "4/23/18 10:30",
+    "MACD": -0.3117,
+    "MACD_Signal": -0.4031,
+    "MACD_Hist": 0.0914
+  },
+  {
+    "date": "4/23/18 11:00",
+    "MACD": -0.2482,
+    "MACD_Signal": -0.3721,
+    "MACD_Hist": 0.1239
+  },
+  {
+    "date": "4/23/18 11:30",
+    "MACD": -0.1562,
+    "MACD_Signal": -0.3289,
+    "MACD_Hist": 0.1727
+  },
+  {
+    "date": "4/23/18 12:00",
+    "MACD": -0.1039,
+    "MACD_Signal": -0.2839,
+    "MACD_Hist": 0.1801
+  },
+  {
+    "date": "4/23/18 12:30",
+    "MACD": -0.1179,
+    "MACD_Signal": -0.2507,
+    "MACD_Hist": 0.1328
+  },
+  {
+    "date": "4/23/18 13:00",
+    "MACD": -0.1451,
+    "MACD_Signal": -0.2296,
+    "MACD_Hist": 0.0845
+  },
+  {
+    "date": "4/23/18 13:30",
+    "MACD": -0.1592,
+    "MACD_Signal": -0.2155,
+    "MACD_Hist": 0.0563
+  },
+  {
+    "date": "4/23/18 14:00",
+    "MACD": -0.1437,
+    "MACD_Signal": -0.2011,
+    "MACD_Hist": 0.0575
+  },
+  {
+    "date": "4/23/18 14:30",
+    "MACD": -0.1498,
+    "MACD_Signal": -0.1909,
+    "MACD_Hist": 0.041
+  },
+  {
+    "date": "4/23/18 15:00",
+    "MACD": -0.1801,
+    "MACD_Signal": -0.1887,
+    "MACD_Hist": 0.0087
+  },
+  {
+    "date": "4/23/18 15:30",
+    "MACD": -0.1666,
+    "MACD_Signal": -0.1843,
+    "MACD_Hist": 0.0177
+  },
+  {
+    "date": "4/23/18 16:00",
+    "MACD": -0.1565,
+    "MACD_Signal": -0.1787,
+    "MACD_Hist": 0.0222
+  },
+  {
+    "date": "4/24/18 9:30",
+    "MACD": -0.0894,
+    "MACD_Signal": -0.1609,
+    "MACD_Hist": 0.0714
+  },
+  {
+    "date": "4/24/18 10:00",
+    "MACD": -0.0367,
+    "MACD_Signal": -0.136,
+    "MACD_Hist": 0.0994
+  },
+  {
+    "date": "4/24/18 10:30",
+    "MACD": -0.0659,
+    "MACD_Signal": -0.122,
+    "MACD_Hist": 0.0561
+  },
+  {
+    "date": "4/24/18 11:00",
+    "MACD": -0.1431,
+    "MACD_Signal": -0.1262,
+    "MACD_Hist": -0.0168
+  },
+  {
+    "date": "4/24/18 11:30",
+    "MACD": -0.2609,
+    "MACD_Signal": -0.1532,
+    "MACD_Hist": -0.1078
+  },
+  {
+    "date": "4/24/18 12:00",
+    "MACD": -0.3741,
+    "MACD_Signal": -0.1973,
+    "MACD_Hist": -0.1767
+  },
+  {
+    "date": "4/24/18 12:30",
+    "MACD": -0.5527,
+    "MACD_Signal": -0.2684,
+    "MACD_Hist": -0.2843
+  },
+  {
+    "date": "4/24/18 13:00",
+    "MACD": -0.7175,
+    "MACD_Signal": -0.3582,
+    "MACD_Hist": -0.3593
+  },
+  {
+    "date": "4/24/18 13:30",
+    "MACD": -0.864,
+    "MACD_Signal": -0.4594,
+    "MACD_Hist": -0.4046
+  },
+  {
+    "date": "4/24/18 14:00",
+    "MACD": -1.0184,
+    "MACD_Signal": -0.5712,
+    "MACD_Hist": -0.4472
+  },
+  {
+    "date": "4/24/18 14:30",
+    "MACD": -1.1724,
+    "MACD_Signal": -0.6914,
+    "MACD_Hist": -0.481
+  },
+  {
+    "date": "4/24/18 15:00",
+    "MACD": -1.2462,
+    "MACD_Signal": -0.8024,
+    "MACD_Hist": -0.4438
+  },
+  {
+    "date": "4/24/18 15:30",
+    "MACD": -1.3034,
+    "MACD_Signal": -0.9026,
+    "MACD_Hist": -0.4008
+  },
+  {
+    "date": "4/24/18 16:00",
+    "MACD": -1.3285,
+    "MACD_Signal": -0.9878,
+    "MACD_Hist": -0.3408
+  },
+  {
+    "date": "4/25/18 9:30",
+    "MACD": -1.2884,
+    "MACD_Signal": -1.0479,
+    "MACD_Hist": -0.2405
+  },
+  {
+    "date": "4/25/18 10:00",
+    "MACD": -1.4924,
+    "MACD_Signal": -1.1368,
+    "MACD_Hist": -0.3556
+  },
+  {
+    "date": "4/25/18 10:30",
+    "MACD": -1.6787,
+    "MACD_Signal": -1.2452,
+    "MACD_Hist": -0.4335
+  },
+  {
+    "date": "4/25/18 11:00",
+    "MACD": -1.7632,
+    "MACD_Signal": -1.3488,
+    "MACD_Hist": -0.4144
+  },
+  {
+    "date": "4/25/18 11:30",
+    "MACD": -1.7065,
+    "MACD_Signal": -1.4203,
+    "MACD_Hist": -0.2861
+  },
+  {
+    "date": "4/25/18 12:00",
+    "MACD": -1.7203,
+    "MACD_Signal": -1.4803,
+    "MACD_Hist": -0.24
+  },
+  {
+    "date": "4/25/18 12:30",
+    "MACD": -1.7338,
+    "MACD_Signal": -1.531,
+    "MACD_Hist": -0.2028
+  },
+  {
+    "date": "4/25/18 13:00",
+    "MACD": -1.7355,
+    "MACD_Signal": -1.5719,
+    "MACD_Hist": -0.1636
+  },
+  {
+    "date": "4/25/18 13:30",
+    "MACD": -1.723,
+    "MACD_Signal": -1.6022,
+    "MACD_Hist": -0.1209
+  },
+  {
+    "date": "4/25/18 14:00",
+    "MACD": -1.6984,
+    "MACD_Signal": -1.6214,
+    "MACD_Hist": -0.077
+  },
+  {
+    "date": "4/25/18 14:30",
+    "MACD": -1.6857,
+    "MACD_Signal": -1.6343,
+    "MACD_Hist": -0.0514
+  },
+  {
+    "date": "4/25/18 15:00",
+    "MACD": -1.6102,
+    "MACD_Signal": -1.6295,
+    "MACD_Hist": 0.0192
+  },
+  {
+    "date": "4/25/18 15:30",
+    "MACD": -1.5758,
+    "MACD_Signal": -1.6187,
+    "MACD_Hist": 0.0429
+  },
+  {
+    "date": "4/25/18 16:00",
+    "MACD": -1.4998,
+    "MACD_Signal": -1.595,
+    "MACD_Hist": 0.0951
+  },
+  {
+    "date": "4/26/18 9:30",
+    "MACD": -1.3721,
+    "MACD_Signal": -1.5504,
+    "MACD_Hist": 0.1783
+  },
+  {
+    "date": "4/26/18 10:00",
+    "MACD": -1.1926,
+    "MACD_Signal": -1.4788,
+    "MACD_Hist": 0.2862
+  },
+  {
+    "date": "4/26/18 10:30",
+    "MACD": -0.9534,
+    "MACD_Signal": -1.3737,
+    "MACD_Hist": 0.4204
+  },
+  {
+    "date": "4/26/18 11:00",
+    "MACD": -0.7539,
+    "MACD_Signal": -1.2498,
+    "MACD_Hist": 0.4959
+  },
+  {
+    "date": "4/26/18 11:30",
+    "MACD": -0.5628,
+    "MACD_Signal": -1.1124,
+    "MACD_Hist": 0.5496
+  },
+  {
+    "date": "4/26/18 12:00",
+    "MACD": -0.397,
+    "MACD_Signal": -0.9693,
+    "MACD_Hist": 0.5723
+  },
+  {
+    "date": "4/26/18 12:30",
+    "MACD": -0.2514,
+    "MACD_Signal": -0.8257,
+    "MACD_Hist": 0.5743
+  },
+  {
+    "date": "4/26/18 13:00",
+    "MACD": -0.1257,
+    "MACD_Signal": -0.6857,
+    "MACD_Hist": 0.56
+  },
+  {
+    "date": "4/26/18 13:30",
+    "MACD": -0.0091,
+    "MACD_Signal": -0.5504,
+    "MACD_Hist": 0.5413
+  },
+  {
+    "date": "4/26/18 14:00",
+    "MACD": 0.0736,
+    "MACD_Signal": -0.4256,
+    "MACD_Hist": 0.4992
+  },
+  {
+    "date": "4/26/18 14:30",
+    "MACD": 0.144,
+    "MACD_Signal": -0.3117,
+    "MACD_Hist": 0.4557
+  },
+  {
+    "date": "4/26/18 15:00",
+    "MACD": 0.2182,
+    "MACD_Signal": -0.2057,
+    "MACD_Hist": 0.4239
+  },
+  {
+    "date": "4/26/18 15:30",
+    "MACD": 0.2428,
+    "MACD_Signal": -0.116,
+    "MACD_Hist": 0.3588
+  },
+  {
+    "date": "4/26/18 16:00",
+    "MACD": 0.26,
+    "MACD_Signal": -0.0408,
+    "MACD_Hist": 0.3008
+  },
+  {
+    "date": "4/27/18 12:00",
+    "MACD": 0.453,
+    "MACD_Signal": -0.0455,
+    "MACD_Hist": 0.4985
+  },
+  {
+    "date": "4/27/18 12:30",
+    "MACD": 0.5502,
+    "MACD_Signal": 0.0736,
+    "MACD_Hist": 0.4766
+  },
+  {
+    "date": "4/27/18 13:00",
+    "MACD": 0.5994,
+    "MACD_Signal": 0.1788,
+    "MACD_Hist": 0.4206
+  },
+  {
+    "date": "4/27/18 13:30",
+    "MACD": 0.6574,
+    "MACD_Signal": 0.2745,
+    "MACD_Hist": 0.3829
+  },
+  {
+    "date": "4/27/18 14:00",
+    "MACD": 0.7288,
+    "MACD_Signal": 0.3654,
+    "MACD_Hist": 0.3635
+  },
+  {
+    "date": "4/27/18 14:30",
+    "MACD": 0.7534,
+    "MACD_Signal": 0.443,
+    "MACD_Hist": 0.3104
+  },
+  {
+    "date": "4/27/18 15:00",
+    "MACD": 0.7824,
+    "MACD_Signal": 0.5109,
+    "MACD_Hist": 0.2716
+  },
+  {
+    "date": "4/27/18 15:30",
+    "MACD": 0.821,
+    "MACD_Signal": 0.5729,
+    "MACD_Hist": 0.2481
+  },
+  {
+    "date": "4/27/18 16:00",
+    "MACD": 0.8306,
+    "MACD_Signal": 0.6244,
+    "MACD_Hist": 0.2062
+  }
+]
