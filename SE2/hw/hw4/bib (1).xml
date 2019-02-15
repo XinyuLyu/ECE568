@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml-stylesheet type="text/xsl" href="bib.xsl"?>
+<!DOCTYPE bib SYSTEM "bib.dtd">
+<bib>
+<book>
+<author><firstname>Leslie</firstname>
+        <lastname>Lamport</lastname>
+ </author>
+<title>Latex: A Document Preparation System </title>
+<year>1986</year>
+<publisher>Addison-Wesley</publisher>
+</book>
+
+<article>
+<author><firstname>David</firstname>
+        <lastname>Marr</lastname>
+</author>
+<title>Visual information processing</title>
+<year>1980</year>
+<volume>290</volume>
+<page>
+<from>199</from>
+<to>218</to>
+</page>
+<journal>Phil. Trans. Roy. Soc. B</journal>
+</article>
+
+<article>
+<author><firstname>Clifton</firstname>
+        <lastname>R. K.</lastname>
+</author>		
+<title>Breakdown of echo suppression in the precedence
+effect</title>
+<year>1987</year>
+<volume>82</volume>
+<page>
+<from>1834</from>
+<to>1835</to>
+</page>
+<journal>J. Acoust. Soc. Am. </journal>
+</article>
+
+<book>
+<author><firstname>David</firstname>
+        <lastname>Marr</lastname>
+</author>
+<title>Vision information processing</title>
+<year>1982</year>
+<address> NY </address>
+<publisher>Freeman</publisher>
+</book>
+
+<article>
+<author><firstname>David</firstname>
+        <lastname>Marr</lastname>
+</author>
+<title>Visual information processing</title>
+<year>1980</year>
+<volume>290</volume>
+<page>
+<from>199</from>
+<to>218</to>
+</page>
+<journal> Phil. Trans. Roy. Soc. B</journal>
+</article>
+
+<book>
+<author><firstname>Sierra</firstname>
+        <lastname>Bates</lastname>
+</author>
+<title>Head First Java</title>
+<year>2007</year>
+<address> NJ </address>
+<publisher>EdieFreeman</publisher>
+</book>
+<article>
+<author><firstname>Tim</firstname>
+        <lastname>Bray</lastname>
+</author>
+<title>Extensible Markup language(XML)</title>
+<year>2006</year>
+<volume>5307</volume>
+<page>
+<from>1</from>
+<to>50</to>
+</page>
+<journal> W3C Recommendation 16 August 2006</journal>
+</article>
+
+<book>
+<author><firstname>Sierra</firstname>
+        <lastname>Bates</lastname>
+</author>
+<title>Algorithm Fourth Edition</title>
+<year>2012</year>
+</book>
+
+<article>
+<author><firstname>James</firstname>
+        <lastname>Clark</lastname>
+</author>
+<title>XML Path Language(XPath)</title>
+<year>1999</year>
+<volume>2447</volume>
+</article>
+
+<PhD-theses> 
+<author><firstname>Andersson</firstname>
+        <lastname>Mats</lastname>
+</author>
+<title>Object-Oriented Modeling and Simulation of Hybrid Systems</title>
+<year>1994</year>
+<ISSN> 0280-5315</ISSN>
+<language> English</language>
+<subject> Control Engineering</subject>
+</PhD-theses> 
+
+<PhD-theses> 
+<author><firstname>Olsson</firstname>
+        <lastname>Henrik</lastname>
+</author>
+<title>Control Systems with Friction</title>
+<year>1996</year>
+<ISSN> 0280-5316</ISSN>
+<language> English</language>
+<subject> Control Engineering</subject>
+</PhD-theses> 
+
+</bib>

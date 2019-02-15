@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <title>Stock System</title>
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="navbar-fixed-top.css" rel="stylesheet">
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+    <script src="/assets/js/jquery-1.12.0.min.js"></script>
+    <script src="/assets/js/Chart.min.js"></script>
+    <script>
+      function drawLineChart() {
+        // Add a helper to format timestamp data
+        Date.prototype.formatMMDDYYYY = function() {
+          return (this.getMonth() + 1) +
+          "/" +  this.getDate() +
+          "/" +  this.getFullYear();
+        }
+        var jsonData = $.ajax({
+          url: 'http://d.microbuilder.io:8080/test/temp',
+          dataType: 'json',
+        }).done(function (results) {
+          // Split timestamp and data into separate arrays
+          var labels = [], data=[];
+          results["packets"].forEach(function(packet) {
+            labels.push(new Date(packet.timestamp).formatMMDDYYYY());
+            data.push(parseFloat(packet.payloadString));
+          });
+          // Create the chart.js data structure using 'labels' and 'data'
+          var tempData = {
+            labels : labels,
+            datasets : [{
+              fillColor             : "rgba(151,187,205,0.2)",
+              strokeColor           : "rgba(151,187,205,1)",
+              pointColor            : "rgba(151,187,205,1)",
+              pointStrokeColor      : "#fff",
+              pointHighlightFill    : "#fff",
+              pointHighlightStroke  : "rgba(151,187,205,1)",
+              data                  : data
+            }]
+          };
+          // Get the context of the canvas element we want to select
+          var ctx = document.getElementById("myLineChart").getContext("2d");
+          // Instantiate a new chart
+          var myLineChart = new Chart(ctx).Line(tempData, {
+          //bezierCurve: false
+          });
+        });
+      }
+      </script>
+      <script type="text/javascript">
+      var username = document.getElementById("username");
+      window.onload = function(){
+          if(localStorage.username.length>1){
+              username.innerHTML = localStorage.username; //给标签加用户名
+          }
+      }
+      function login(){
+          // 构造返回链接
+          var returnUrl = "returnUrl=goTo-demo.html";
+          var Url = "goToLogin-demo.html" + "?" + returnUrl;
+          location.href = Url;
+      }
+  </script>
+  </head>
+
+  <body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand hidden-sm">Stock System</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse" role="navigation">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#Home" data-toggle="tab">Home</a></li>
+            <!-- <li><a href="#about">Get Data</a></li>
+            <li><a href="#contact">Analysis</a></li> -->
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Company <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="#AABA" data-toggle="tab">AABA</a></li>
+                <li><a href="#AMZN" data-toggle="tab">AMZN</a></li>
+                <li><a href="#BABA" data-toggle="tab">BABA</a></li>
+                <li><a href="#FB" data-toggle="tab">FB</a></li>
+                <li><a href="#GOOG" data-toggle="tab">GOOG</a></li>
+                <li><a href="#NFLX" data-toggle="tab">NFLX</a></li>
+                <li><a href="#OPK" data-toggle="tab">OPK</a></li>
+                <li><a href="#SPLK" data-toggle="tab">SPLK</a></li>
+                <li><a href="#TSLA" data-toggle="tab">TSLA</a></li>
+                <li><a href="#TWTR" data-toggle="tab">TWTR</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Query <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="#High" data-toggle="tab">Highest</a></li>
+                <li><a href="#Low" data-toggle="tab">Lowest</a></li>
+                <li><a href="#Ave" data-toggle="tab">Average</a></li>
+              </ul>
+            </li>
+          </ul>
+          if(session.getAttribute())
+          <ul class="nav navbar-nav navbar-right hidden-sm">
+            <li><a href="./Register.html" >Register</a></li>
+            <li class="active"><a href="./Login.html" >Log In <span class="sr-only">(current)</span></a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <!--Content-->
+    <div class="container">
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="tab-content">
+        <div class="tab-pane active" id="Home">
+        </br></br></br>
+          <!-- <div class="jumbotron"> -->
+            <blockquote>
+              <h1>Welcome!</h1></br>
+              <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+              <!-- <p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p> -->
+            </blockquote>
+          <!-- </div> -->
+        </div>
+        <div class="tab-pane" id="AABA">
+        </br>
+          <div class="tabbable"> <!-- Only required for left/right tabs -->
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#AABA1" data-toggle="tab">Historical Data</a></li>
+              <li><a href="#AABA2" data-toggle="tab">Real_time Data</a></li>
+              <li><a href="#AABA3" data-toggle="tab">Prediction</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Indicators <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li class="active">
+                    <a href="#AABA4" data-toggle="tab">ROC</a>
+                  </li>
+                  <li><a href="#AABA5" data-toggle="tab">OBV</a></li>
+                  <li><a href="#AABA6" data-toggle="tab">MACD</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="AABA1">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Open</th>
+                          <th>High</th>
+                          <th>Low</th>
+                          <th>Close</th>
+                          <th>Volume</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Apr 20, 1996</td>
+                          <td>2,692.56</td>
+                          <td>2,693.94</td>
+                          <td>2,660.61</td>
+                          <td>2,670.14</td>
+                          <td>3,388,590,000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="AABA2">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Open</th>
+                          <th>High</th>
+                          <th>Low</th>
+                          <th>Close</th>
+                          <th>Volume</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Apr 20, 2018</td>
+                          <td>2,692.56</td>
+                          <td>2,693.94</td>
+                          <td>2,660.61</td>
+                          <td>2,670.14</td>
+                          <td>3,388,590,000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="AABA3">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Prediction</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>SVM</td>
+                          <td>2,692.56</td>
+                        </tr>
+                        <tr>
+                          <td>ANN</td>
+                          <td>2,692.56</td>
+                        </tr>
+                        <tr>
+                          <td>LSTM</td>
+                          <td>2,692.56</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="AABA4">
+                <canvas id="myLineChart" width="740" height="200" background-color="#f5f5f5"></canvas>
+                drawLineChart();
+              </div>
+              <div class="tab-pane" id="AABA5">
+                <a>5</a>
+              </div>
+              <div class="tab-pane" id="AABA6">
+                <a>6</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="AMZN">
+        </br>
+          <div class="tabbable"> <!-- Only required for left/right tabs -->
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#AMZN1" data-toggle="tab">Historical Data</a></li>
+              <li><a href="#AMZN2" data-toggle="tab">Real_time Data</a></li>
+              <li><a href="#AMZN3" data-toggle="tab">Prediction</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Indicators <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li class="active">
+                    <a href="#AMZN4" data-toggle="tab">ROC</a>
+                  </li>
+                  <li><a href="#AMZN5" data-toggle="tab">OBV</a></li>
+                  <li><a href="#AMZN6" data-toggle="tab">MACD</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="AMZN1">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Open</th>
+                          <th>High</th>
+                          <th>Low</th>
+                          <th>Close</th>
+                          <th>Volume</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Apr 20, 1996</td>
+                          <td>2,692.56</td>
+                          <td>2,693.94</td>
+                          <td>2,660.61</td>
+                          <td>2,670.14</td>
+                          <td>3,388,590,000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="AMZN2">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Open</th>
+                          <th>High</th>
+                          <th>Low</th>
+                          <th>Close</th>
+                          <th>Volume</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Apr 20, 2018</td>
+                          <td>2,692.56</td>
+                          <td>2,693.94</td>
+                          <td>2,660.61</td>
+                          <td>2,670.14</td>
+                          <td>3,388,590,000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="AMZN3">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Prediction</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>SVM</td>
+                          <td>2,692.56</td>
+                        </tr>
+                        <tr>
+                          <td>ANN</td>
+                          <td>2,692.56</td>
+                        </tr>
+                        <tr>
+                          <td>LSTM</td>
+                          <td>2,692.56</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="AMZN4">
+                <canvas id="myLineChart" width="740" height="200" background-color="#f5f5f5"></canvas>
+                drawLineChart();
+              </div>
+              <div class="tab-pane" id="AMZN5">
+                <a>5</a>
+              </div>
+              <div class="tab-pane" id="AMZN6">
+                <a>6</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="BABA">
+        </br>
+          <div class="tabbable"> <!-- Only required for left/right tabs -->
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#BABA1" data-toggle="tab">Historical Data</a></li>
+              <li><a href="#BABA2" data-toggle="tab">Real_time Data</a></li>
+              <li><a href="#BABA3" data-toggle="tab">Prediction</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Indicators <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li class="active">
+                    <a href="#BABA4" data-toggle="tab">ROC</a>
+                  </li>
+                  <li><a href="#BABA5" data-toggle="tab">OBV</a></li>
+                  <li><a href="#BABA6" data-toggle="tab">MACD</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="BABA1">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Open</th>
+                          <th>High</th>
+                          <th>Low</th>
+                          <th>Close</th>
+                          <th>Volume</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Apr 20, 1996</td>
+                          <td>2,692.56</td>
+                          <td>2,693.94</td>
+                          <td>2,660.61</td>
+                          <td>2,670.14</td>
+                          <td>3,388,590,000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="BABA2">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Open</th>
+                          <th>High</th>
+                          <th>Low</th>
+                          <th>Close</th>
+                          <th>Volume</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Apr 20, 2018</td>
+                          <td>2,692.56</td>
+                          <td>2,693.94</td>
+                          <td>2,660.61</td>
+                          <td>2,670.14</td>
+                          <td>3,388,590,000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="BABA3">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Prediction</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>SVM</td>
+                          <td>2,692.56</td>
+                        </tr>
+                        <tr>
+                          <td>ANN</td>
+                          <td>2,692.56</td>
+                        </tr>
+                        <tr>
+                          <td>LSTM</td>
+                          <td>2,692.56</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="BABA4">
+                <canvas id="myLineChart" width="740" height="200" background-color="#f5f5f5"></canvas>
+                drawLineChart();
+              </div>
+              <div class="tab-pane" id="BABA5">
+                <a>5</a>
+              </div>
+              <div class="tab-pane" id="AMZN6">
+                <a>6</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="FB">
+        </br>
+          <div class="tabbable"> <!-- Only required for left/right tabs -->
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#FB1" data-toggle="tab">Historical Data</a></li>
+              <li><a href="#FB2" data-toggle="tab">Real_time Data</a></li>
+              <li><a href="#FB3" data-toggle="tab">Prediction</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Indicators <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li class="active">
+                    <a href="#FB4" data-toggle="tab">ROC</a>
+                  </li>
+                  <li><a href="#FB5" data-toggle="tab">OBV</a></li>
+                  <li><a href="#FB6" data-toggle="tab">MACD</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="FB1">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Open</th>
+                          <th>High</th>
+                          <th>Low</th>
+                          <th>Close</th>
+                          <th>Volume</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Apr 20, 1996</td>
+                          <td>2,692.56</td>
+                          <td>2,693.94</td>
+                          <td>2,660.61</td>
+                          <td>2,670.14</td>
+                          <td>3,388,590,000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="FB2">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Open</th>
+                          <th>High</th>
+                          <th>Low</th>
+                          <th>Close</th>
+                          <th>Volume</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Apr 20, 2018</td>
+                          <td>2,692.56</td>
+                          <td>2,693.94</td>
+                          <td>2,660.61</td>
+                          <td>2,670.14</td>
+                          <td>3,388,590,000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="FB3">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Prediction</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>SVM</td>
+                          <td>2,692.56</td>
+                        </tr>
+                        <tr>
+                          <td>ANN</td>
+                          <td>2,692.56</td>
+                        </tr>
+                        <tr>
+                          <td>LSTM</td>
+                          <td>2,692.56</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="FB4">
+                <canvas id="myLineChart" width="740" height="200" background-color="#f5f5f5"></canvas>
+                drawLineChart();
+              </div>
+              <div class="tab-pane" id="FB5">
+                <a>5</a>
+              </div>
+              <div class="tab-pane" id="FB6">
+                <a>6</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="GOOG">
+        </br>
+          <div class="tabbable"> <!-- Only required for left/right tabs -->
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#GOOG1" data-toggle="tab">Historical Data</a></li>
+              <li><a href="#GOOG2" data-toggle="tab">Real_time Data</a></li>
+              <li><a href="#GOOG3" data-toggle="tab">Prediction</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Indicators <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li class="active">
+                    <a href="#GOOG4" data-toggle="tab">ROC</a>
+                  </li>
+                  <li><a href="#GOOG5" data-toggle="tab">OBV</a></li>
+                  <li><a href="#GOOG6" data-toggle="tab">MACD</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="GOOG1">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Open</th>
+                          <th>High</th>
+                          <th>Low</th>
+                          <th>Close</th>
+                          <th>Volume</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Apr 20, 1996</td>
+                          <td>2,692.56</td>
+                          <td>2,693.94</td>
+                          <td>2,660.61</td>
+                          <td>2,670.14</td>
+                          <td>3,388,590,000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="GOOG2">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Open</th>
+                          <th>High</th>
+                          <th>Low</th>
+                          <th>Close</th>
+                          <th>Volume</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Apr 20, 2018</td>
+                          <td>2,692.56</td>
+                          <td>2,693.94</td>
+                          <td>2,660.61</td>
+                          <td>2,670.14</td>
+                          <td>3,388,590,000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="GOOG3">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Prediction</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>SVM</td>
+                          <td>2,692.56</td>
+                        </tr>
+                        <tr>
+                          <td>ANN</td>
+                          <td>2,692.56</td>
+                        </tr>
+                        <tr>
+                          <td>LSTM</td>
+                          <td>2,692.56</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="GOOG4">
+                <canvas id="myLineChart" width="740" height="200" background-color="#f5f5f5"></canvas>
+                drawLineChart();
+              </div>
+              <div class="tab-pane" id="GOOG5">
+                <a>5</a>
+              </div>
+              <div class="tab-pane" id="GOOG6">
+                <a>6</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="NFLX">
+        </br>
+          <div class="tabbable"> <!-- Only required for left/right tabs -->
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#NFLX1" data-toggle="tab">Historical Data</a></li>
+              <li><a href="#NFLX2" data-toggle="tab">Real_time Data</a></li>
+              <li><a href="#NFLX3" data-toggle="tab">Prediction</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Indicators <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li class="active">
+                    <a href="#NFLX4" data-toggle="tab">ROC</a>
+                  </li>
+                  <li><a href="#NFLX5" data-toggle="tab">OBV</a></li>
+                  <li><a href="#NFLX6" data-toggle="tab">MACD</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="NFLX1">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Open</th>
+                          <th>High</th>
+                          <th>Low</th>
+                          <th>Close</th>
+                          <th>Volume</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Apr 20, 1996</td>
+                          <td>2,692.56</td>
+                          <td>2,693.94</td>
+                          <td>2,660.61</td>
+                          <td>2,670.14</td>
+                          <td>3,388,590,000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="NFLX2">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Open</th>
+                          <th>High</th>
+                          <th>Low</th>
+                          <th>Close</th>
+                          <th>Volume</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Apr 20, 2018</td>
+                          <td>2,692.56</td>
+                          <td>2,693.94</td>
+                          <td>2,660.61</td>
+                          <td>2,670.14</td>
+                          <td>3,388,590,000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="NFLX3">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Prediction</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>SVM</td>
+                          <td>2,692.56</td>
+                        </tr>
+                        <tr>
+                          <td>ANN</td>
+                          <td>2,692.56</td>
+                        </tr>
+                        <tr>
+                          <td>LSTM</td>
+                          <td>2,692.56</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="NFLX4">
+                <canvas id="myLineChart" width="740" height="200" background-color="#f5f5f5"></canvas>
+                drawLineChart();
+              </div>
+              <div class="tab-pane" id="NFLX5">
+                <a>5</a>
+              </div>
+              <div class="tab-pane" id="NFLX6">
+                <a>6</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="OPK">
+        </br>
+          <div class="tabbable"> <!-- Only required for left/right tabs -->
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#OPK1" data-toggle="tab">Historical Data</a></li>
+              <li><a href="#OPK2" data-toggle="tab">Real_time Data</a></li>
+              <li><a href="#OPK3" data-toggle="tab">Prediction</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Indicators <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li class="active">
+                    <a href="#OPK4" data-toggle="tab">ROC</a>
+                  </li>
+                  <li><a href="#OPK5" data-toggle="tab">OBV</a></li>
+                  <li><a href="#OPK6" data-toggle="tab">MACD</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="OPK1">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Open</th>
+                          <th>High</th>
+                          <th>Low</th>
+                          <th>Close</th>
+                          <th>Volume</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Apr 20, 1996</td>
+                          <td>2,692.56</td>
+                          <td>2,693.94</td>
+                          <td>2,660.61</td>
+                          <td>2,670.14</td>
+                          <td>3,388,590,000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="OPK2">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Open</th>
+                          <th>High</th>
+                          <th>Low</th>
+                          <th>Close</th>
+                          <th>Volume</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Apr 20, 2018</td>
+                          <td>2,692.56</td>
+                          <td>2,693.94</td>
+                          <td>2,660.61</td>
+                          <td>2,670.14</td>
+                          <td>3,388,590,000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="OPK3">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Prediction</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>SVM</td>
+                          <td>2,692.56</td>
+                        </tr>
+                        <tr>
+                          <td>ANN</td>
+                          <td>2,692.56</td>
+                        </tr>
+                        <tr>
+                          <td>LSTM</td>
+                          <td>2,692.56</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="OPK4">
+                <canvas id="myLineChart" width="740" height="200" background-color="#f5f5f5"></canvas>
+                drawLineChart();
+              </div>
+              <div class="tab-pane" id="OPK5">
+                <a>5</a>
+              </div>
+              <div class="tab-pane" id="OPK6">
+                <a>6</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="SPLK">
+        </br>
+          <div class="tabbable">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#SPLK1" data-toggle="tab">Historical Data</a></li>
+              <li><a href="#SPLK2" data-toggle="tab">Real_time Data</a></li>
+              <li><a href="#SPLK3" data-toggle="tab">Prediction</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Indicators <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li class="active">
+                    <a href="#SPLK4" data-toggle="tab">ROC</a>
+                  </li>
+                  <li><a href="#SPLK5" data-toggle="tab">OBV</a></li>
+                  <li><a href="#SPLK6" data-toggle="tab">MACD</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="SPLK1">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Open</th>
+                          <th>High</th>
+                          <th>Low</th>
+                          <th>Close</th>
+                          <th>Volume</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Apr 20, 1996</td>
+                          <td>2,692.56</td>
+                          <td>2,693.94</td>
+                          <td>2,660.61</td>
+                          <td>2,670.14</td>
+                          <td>3,388,590,000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="SPLK2">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Open</th>
+                          <th>High</th>
+                          <th>Low</th>
+                          <th>Close</th>
+                          <th>Volume</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Apr 20, 2018</td>
+                          <td>2,692.56</td>
+                          <td>2,693.94</td>
+                          <td>2,660.61</td>
+                          <td>2,670.14</td>
+                          <td>3,388,590,000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="SPLK3">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Prediction</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>SVM</td>
+                          <td>2,692.56</td>
+                        </tr>
+                        <tr>
+                          <td>ANN</td>
+                          <td>2,692.56</td>
+                        </tr>
+                        <tr>
+                          <td>LSTM</td>
+                          <td>2,692.56</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="SPLK4">
+                <canvas id="myLineChart" width="740" height="200" background-color="#f5f5f5"></canvas>
+                drawLineChart();
+              </div>
+              <div class="tab-pane" id="SPLK5">
+                <a>5</a>
+              </div>
+              <div class="tab-pane" id="SPLK6">
+                <a>6</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="TSLA">
+        </br>
+          <div class="tabbable"> <!-- Only required for left/right tabs -->
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#TSLA1" data-toggle="tab">Historical Data</a></li>
+              <li><a href="#TSLA2" data-toggle="tab">Real_time Data</a></li>
+              <li><a href="#TSLA3" data-toggle="tab">Prediction</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Indicators <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li class="active">
+                    <a href="#TSLA4" data-toggle="tab">ROC</a>
+                  </li>
+                  <li><a href="#TSLA5" data-toggle="tab">OBV</a></li>
+                  <li><a href="#TSLA6" data-toggle="tab">MACD</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="TSLA1">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Open</th>
+                          <th>High</th>
+                          <th>Low</th>
+                          <th>Close</th>
+                          <th>Volume</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Apr 20, 1996</td>
+                          <td>2,692.56</td>
+                          <td>2,693.94</td>
+                          <td>2,660.61</td>
+                          <td>2,670.14</td>
+                          <td>3,388,590,000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="TSLA2">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Open</th>
+                          <th>High</th>
+                          <th>Low</th>
+                          <th>Close</th>
+                          <th>Volume</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Apr 20, 2018</td>
+                          <td>2,692.56</td>
+                          <td>2,693.94</td>
+                          <td>2,660.61</td>
+                          <td>2,670.14</td>
+                          <td>3,388,590,000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="TSLA3">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Prediction</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>SVM</td>
+                          <td>2,692.56</td>
+                        </tr>
+                        <tr>
+                          <td>ANN</td>
+                          <td>2,692.56</td>
+                        </tr>
+                        <tr>
+                          <td>LSTM</td>
+                          <td>2,692.56</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="TSLA4">
+                <canvas id="myLineChart" width="740" height="200" background-color="#f5f5f5"></canvas>
+                drawLineChart();
+              </div>
+              <div class="tab-pane" id="TSLA5">
+                <a>5</a>
+              </div>
+              <div class="tab-pane" id="TSLA6">
+                <a>6</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="TWTR">
+        </br>
+          <div class="tabbable"> <!-- Only required for left/right tabs -->
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#TWTR1" data-toggle="tab">Historical Data</a></li>
+              <li><a href="#TWTR2" data-toggle="tab">Real_time Data</a></li>
+              <li><a href="#TWTR3" data-toggle="tab">Prediction</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Indicators <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li class="active">
+                    <a href="#TWTR4" data-toggle="tab">ROC</a>
+                  </li>
+                  <li><a href="#TWTR5" data-toggle="tab">OBV</a></li>
+                  <li><a href="#TWTR6" data-toggle="tab">MACD</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="TWTR1">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Open</th>
+                          <th>High</th>
+                          <th>Low</th>
+                          <th>Close</th>
+                          <th>Volume</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Apr 20, 1997</td>
+                          <td>2,692.56</td>
+                          <td>2,693.94</td>
+                          <td>2,660.61</td>
+                          <td>2,670.14</td>
+                          <td>3,388,590,000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="TWTR2">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Open</th>
+                          <th>High</th>
+                          <th>Low</th>
+                          <th>Close</th>
+                          <th>Volume</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Apr 20, 2018</td>
+                          <td>2,692.56</td>
+                          <td>2,693.94</td>
+                          <td>2,660.61</td>
+                          <td>2,670.14</td>
+                          <td>3,388,590,000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="TWTR3">
+                <section id="tables">
+                  <div class="bs-docs-example">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Prediction</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>SVM</td>
+                          <td>2,692.56</td>
+                        </tr>
+                        <tr>
+                          <td>ANN</td>
+                          <td>2,692.56</td>
+                        </tr>
+                        <tr>
+                          <td>LSTM</td>
+                          <td>2,692.56</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="TWTR4">
+                <canvas id="myLineChart" width="740" height="200" background-color="#f5f5f5"></canvas>
+                drawLineChart();
+              </div>
+              <div class="tab-pane" id="TWTR5">
+                <a>5</a>
+              </div>
+              <div class="tab-pane" id="TWTR6">
+                <a>6</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="High">
+        </br>
+          <section id="tables">
+            <div class="bs-docs-example">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Company ID</th>
+                    <th>Highest Stock Price in the last ten days</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>AABA</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>AMZN</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>BABA</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>FB</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>GOOG</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>NFLX</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>OPK</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>SPLK</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>TSLA</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>TWTR</td>
+                    <td>2,692.56</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+        <div class="tab-pane" id="Low">
+        </br>
+          <section id="tables">
+            <div class="bs-docs-example">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Company ID</th>
+                    <th>Lowest Stock Price in the last one year</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>AABA</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>AMZN</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>BABA</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>FB</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>GOOG</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>NFLX</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>OPK</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>SPLK</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>TSLA</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>TWTR</td>
+                    <td>2,692.56</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+        <div class="tab-pane" id="Ave">
+        </br>
+          <section id="tables">
+            <div class="bs-docs-example">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Company ID</th>
+                    <th>Average Stock Price in the last one year</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>AABA</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>AMZN</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>BABA</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>FB</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>GOOG</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>NFLX</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>OPK</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>SPLK</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>TSLA</td>
+                    <td>2,692.56</td>
+                  </tr>
+                  <tr>
+                    <td>TWTR</td>
+                    <td>2,692.56</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

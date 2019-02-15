@@ -1,0 +1,151 @@
+<html>
+<head>
+<title> New Document </title>  
+<meta charset="utf-8"> 
+<style type="text/css">  
+    *{  
+       margin:0px;  
+       padding:0px;  
+    }  
+    body table{  
+        border:1px solid black;  
+    }  
+    th{  
+        border:1px solid black;  
+        text-align:center;  
+        line-height:center;  
+    }  
+    td{  
+        border:1px solid black;  
+        text-align:center;  
+        line-height:center;  
+    }  
+  </style>  
+<script type="text/javascript">
+function volume()
+ {	 
+  var volume;
+  var radius = document.getElementById('r').value;
+  var height = document.getElementById('h').value;
+  radius = Math.abs(radius);
+  if(document.getElementById('MyForm').shape.value=="cylinder")
+  {volume = height * Math.PI * Math.pow(radius, 2);}
+  if(document.getElementById('MyForm').shape.value=="cone")
+  {volume=height * Math.PI * Math.pow(radius, 2)/3;}
+  if(document.getElementById('MyForm').shape.value=="sphere")
+  {volume = (4/3) * Math.PI * Math.pow(radius, 3);}
+  volume = volume.toFixed(15);
+  document.getElementById('vol').innerHTML =volume;
+  document.getElementById('height').innerHTML =height;
+  document.getElementById('radius').innerHTML =radius;
+
+ }	
+  function print1()
+  {
+   if(document.getElementById('MyForm').units[0].checked)
+   { document.getElementById("p1").innerHTML="English";
+     document.getElementById("cal_unit1").innerHTML="ft";
+	 document.getElementById("cal_unit2").innerHTML="ft";
+	 document.getElementById("cal_unit3").innerHTML="ft";
+   }
+   if(document.getElementById('MyForm').units[1].checked)
+   {  document.getElementById("p1").innerHTML="SI";
+    document.getElementById("cal_unit1").innerHTML="m";
+	 document.getElementById("cal_unit2").innerHTML="m";
+	 document.getElementById("cal_unit3").innerHTML="m";
+	 }
+  }
+  function print2()
+  {
+   if(document.getElementById('MyForm').shape.value=="cylinder")
+   { document.getElementById("p2").innerHTML="Cylinder";
+     document.getElementById("type_show1").innerHTML="cylinder"}
+   if(document.getElementById('MyForm').shape.value=="cone")
+   {  document.getElementById("p2").innerHTML="Cone";
+   document.getElementById("type_show1").innerHTML="cone"}
+   if(document.getElementById('MyForm').shape.value=="sphere")
+   {  document.getElementById("p2").innerHTML="Sphere";
+      document.getElementById("type_show1").innerHTML="sphere"}
+  }
+  
+  function reset() {
+		var x = document.forms["MyForm"];
+		x.r.value = "";
+		x.h.value = "";
+		document.getElementById('type_show1').innerHTML = "";
+		document.getElementById('vol').innerHTML = "";
+		document.getElementById('radius').innerHTML = "";
+		document.getElementById('height').innerHTML = "";
+		document.getElementById("cal_unit1").innerHTML = "ft";
+		document.getElementById("cal_unit2").innerHTML = "ft";
+		document.getElementById("cal_unit3").innerHTML = "ft";
+		document.getElementById('type_show1').innerHTML = "cylinder";
+	}
+	function shapeClick() {
+  var type = document.getElementById('MyForm').shape.value;
+  document.getElementById('type_show1').innerHTML =type;
+  document.getElementById('p2').innerHTML =type;
+}
+	function unitsClick() {
+  if(document.getElementById('MyForm').units[0].checked)
+   { document.getElementById("p1").innerHTML="English";
+     document.getElementById("cal_unit1").innerHTML="ft";
+	 document.getElementById("cal_unit2").innerHTML="ft";
+	 document.getElementById("cal_unit3").innerHTML="ft";
+   }
+   if(document.getElementById('MyForm').units[1].checked)
+   {  document.getElementById("p1").innerHTML="SI";
+    document.getElementById("cal_unit1").innerHTML="m";
+	 document.getElementById("cal_unit2").innerHTML="m";
+	 document.getElementById("cal_unit3").innerHTML="m";
+	 }
+}
+</script>
+</head>
+<body>
+<h1>This web site will find the volume<br> 
+for a Cylinder, Sphere or Cone</h1>
+<br>
+<form action="javascript:return false;" id="MyForm">
+Select the units(English or SI)<br>
+<input type="radio" name="units" value="English" onChange = "unitsClick()" checked/>English
+<input type="radio" name="units" value="SI" onChange = "unitsClick()" />SI<br><br>
+Select the shape
+<select id="Shape" name="shape" onChange = "shapeClick()">  
+            <option value="cylinder" id="cylinder" selected>cylinder</option>   
+            <option value="cone" id="cone" >cone</option> 
+            <option value="sphere" id="sphere" >sphere</option>        
+</select><br><br>
+Enter the radius:<input id="r" name="radius"style="text-align:right"></input><br><br>
+For the cylinder and cone, Enter the height:<input id="h" name="height" style="text-align:right"></input><br><br>
+<!--<input type="reset" value="reset the form" /><br><br>-->
+</form>
+<button onclick="reset()">reset the form</button><br><br>
+<h1>Results</h1><br>
+You selected to use <span id="p1">English</span> units<br><br>
+You selected to find the value for a <span id="p2">cylinder</span> shape<br> <br>
+
+<table border="1">
+	<tr>
+		<td>Shape</td>
+		<td>Radius</td>
+		<td>Height</td>
+		<td>Volume</td>
+	</tr>
+	<tr>
+		<td> </td>
+		<td>(<span id ="cal_unit1">ft</span>)</td>
+		<td>(<span id ="cal_unit2">ft</span>)</td>
+		<td>(<span id ="cal_unit3">ft</span>^3)</td>
+	</tr>
+	<tr>
+		<td><span id="type_show1">shape</span></td>	
+		<td><span id="radius"></span></td>
+		<td><span id="height"></span></td>
+		<td><span id="vol"></span></td>			
+	</tr>
+</table>
+
+<button onclick="volume();print1();print2()">Calculate</button><br><br>
+</body>
+</html>

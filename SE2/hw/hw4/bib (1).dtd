@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<!ELEMENT bib ( (book | article)+)>
+<!ELEMENT book ( author, title, year, (address)?, publisher )>
+<!ELEMENT article ( author, title, year, volume, page, journal) >
+<!ELEMENT PhD-theses ( author, title, year, ISSN, language,subject) >
+<!ELEMENT author ( firstname, lastname)>
+<!ELEMENT page (from, to)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT year (#PCDATA)>
+<!ELEMENT address (#PCDATA)>
+<!ELEMENT publisher (#PCDATA)>
+<!ELEMENT firstname (#PCDATA)>
+<!ELEMENT lastname (#PCDATA)>
+<!ELEMENT from (#PCDATA)>
+<!ELEMENT to (#PCDATA)>
+<!ELEMENT journal (#PCDATA)>
+<!ELEMENT volume (#PCDATA)>
+<!ELEMENT ISSN (#PCDATA)>
+<!ELEMENT subject (#PCDATA)>
+<!ELEMENT language (#PCDATA)>
