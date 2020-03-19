@@ -20,3 +20,11 @@ Run our project, make sure you already install all the packages, otherwise use p
 Type the address " http://127.0.0.1:8088/preRegist" to enter the website. Then you can register your own account the login in. For our special feature, we create a table using the user’s account when he / she created the account. And this table contains the his / her favorite stocks.
 
 The file Stock Data contains 10 companies’ stock information. The history file contains up to 20 years of the historical prices. The real time data contains the latest day’s price and the time slice between two real-time points is about 1 minutes.
+
+![avatar](https://github.com/XinyuLyu/ECE568/blob/master/1.png)
+![avatar](https://github.com/XinyuLyu/ECE568/blob/master/2.png)
+![avatar](https://github.com/XinyuLyu/ECE568/blob/master/3.png)
+![avatar](https://github.com/XinyuLyu/ECE568/blob/master/4.png)
+![avatar](https://github.com/XinyuLyu/ECE568/blob/master/5.png)
+![avatar](https://github.com/XinyuLyu/ECE568/blob/master/6.png)
+![avatar](https://github.com/XinyuLyu/ECE568/blob/master/7.png)
